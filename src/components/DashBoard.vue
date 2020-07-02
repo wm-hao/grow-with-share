@@ -1,18 +1,19 @@
 <template>
     <v-app>
-        <v-app-bar app color="green"
-                   clipped-left
-        >
-            <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar app dark>
+            <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+            <v-spacer/>
+            <v-icon>mdi-logout-variant</v-icon>
         </v-app-bar>
-        <v-navigation-drawer app
-                             clipped
-                             :mini-variant.sync="drawer"
+        <v-navigation-drawer
+                absolute
+                temporary
+                v-model="drawer"
         >
+            <SideBar/>
         </v-navigation-drawer>
         <v-main>
             <v-container fluid class="mx-4 my-4">
-                <v-btn @click="handleDrawerToggle">Click me</v-btn>
             </v-container>
         </v-main>
 
@@ -25,18 +26,15 @@
 <script>
 
     import Copyright from "./Copyright";
+    import SideBar from "./SideBar";
 
     export default {
         name: "DashBoard",
-        components: {Copyright},
+        components: {SideBar, Copyright},
         data: () => ({
             drawer: false
         }),
-        methods:{
-            handleDrawerToggle: function () {
-                this.drawer = !this.drawer;
-            }
-        }
+        methods: {}
     }
 </script>
 
