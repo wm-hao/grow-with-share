@@ -3,7 +3,9 @@
         <v-app-bar app dark>
             <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
             <v-spacer/>
-            <v-icon>mdi-logout-variant</v-icon>
+            <v-btn icon @click="handleLogout">
+                <v-icon>mdi-logout-variant</v-icon>
+            </v-btn>
         </v-app-bar>
         <v-navigation-drawer
                 absolute
@@ -11,6 +13,11 @@
                 v-model="drawer"
         >
             <SideBar/>
+            <template v-slot:append>
+                <div class="pa-4">
+                    <v-btn block class="text-center" >退出</v-btn>
+                </div>
+            </template>
         </v-navigation-drawer>
         <v-main>
             <v-container fluid class="mx-4 my-4">
@@ -34,7 +41,11 @@
         data: () => ({
             drawer: false
         }),
-        methods: {}
+        methods: {
+            handleLogout: function () {
+
+            }
+        }
     }
 </script>
 
