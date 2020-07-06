@@ -1,26 +1,27 @@
 <template>
     <v-app>
-        <v-app-bar app dark>
-            <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+        <v-app-bar app color="pink darken-1">
+            <v-app-bar-nav-icon @click="drawer = true" color="white"></v-app-bar-nav-icon>
             <v-spacer/>
             <v-btn icon @click="handleLogout">
-                <v-icon>mdi-logout-variant</v-icon>
+                <v-icon color="white">mdi-logout-variant</v-icon>
             </v-btn>
         </v-app-bar>
         <v-navigation-drawer
-                absolute
+                app
                 temporary
                 v-model="drawer"
         >
             <SideBar/>
-            <template v-slot:append>
-                <div class="pa-4">
-                    <v-btn block class="text-center" >退出</v-btn>
-                </div>
-            </template>
+            <!-- <template v-slot:append>
+                 <div class="pa-4">
+                     <v-btn block class="text-center" text>退出</v-btn>
+                 </div>
+             </template>-->
         </v-navigation-drawer>
         <v-main>
-            <v-container fluid class="mx-4 my-4">
+            <v-container fluid class="my-2 px-4 py-1">
+                <router-view/>
             </v-container>
         </v-main>
 
@@ -43,7 +44,18 @@
         }),
         methods: {
             handleLogout: function () {
+                this.$confirm('您将要退出本系统?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '您已成功退出!'
+                    });
+                }).catch(() => {
 
+                });
             }
         }
     }
