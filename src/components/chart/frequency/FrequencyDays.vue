@@ -1,125 +1,57 @@
 <template>
     <v-card flat="">
-        <ve-histogram :data="chartData" :settings="charSettings" :extend="extend"
-                      :height="chartHeight" :data-empty="dataEmpty"></ve-histogram>
-        <FrequencyYearMonth v-bind:name="lalala"/>
+        <BaseHistogramChart :chart-data-settings="chartDataSettings"/>
     </v-card>
 </template>
 
 <script>
-    import ChartConfig from '../../../../const/ChartConst';
-    import FrequencyYearMonth from "./FrequencyYearMonth";
+    import ChartConfig from '../../../const/ChartConst';
+    import BaseHistogramChart from "../BaseHistogramChart";
+    import BaseChartSettings from "../../../const/chartBase";
 
     export default {
         name: "FrequencyDays",
-        components: {FrequencyYearMonth},
-        data: () => ({
-            dataEmpty: true,
-            chartHeight: ChartConfig.baseHeight,
-            extend: {
-                legend: {
-                    top: ChartConfig.legendTop
-                },
-                title: {
-                    text: '日交易频率',
-                    textStyle: {},
-                    left: ChartConfig.titleLeft,
-                    top: ChartConfig.titleTop
-                },
-                xAxis: {
-                    axisLabel: {
-                        interval: 2
-                    }
-                },
-                dataZoom: [
-                    {
-                        id: 'dataZoomX',
-                        type: 'slider',
-                        xAxisIndex: [0],
-                        filterMode: 'filter',
-                        start: 50,
-                        end: 80,
-                        height: 14,
-                        fillerColor: 'rgba(216,27,96, 0.8)'
-                    }
-                ],
-                series: {
-                    label: {
-                        show: true,
-                        position: "top"
-                    },
-                    barWidth: 14,
-                    lineStyle: {
-                        color: {
-                            type: 'linear',
-                            x: 0,
-                            y: 0,
-                            x2: 0,
-                            y2: 1,
-                            colorStops: [{
-                                offset: 0, color: '#f9bf6b'
-                            }, {
-                                offset: 1, color: 'red'
-                            }],
-                            global: false
-                        }
-                    },
-                    itemStyle: {
-                        barBorderRadius: 1,
-                        color: {
-                            type: 'linear',
-                            x: 0,
-                            y: 0,
-                            x2: 0,
-                            y2: 1,
-                            colorStops: [{
-                                offset: 0, color: '#FF80AB' // 0% 处的颜色
-                            }, {
-                                offset: 1, color: '#4FC3F7' // 100% 处的颜色
-                            }],
+        components: {BaseHistogramChart},
+        data: () => {
+            let options = {
+                title: '日交易频率',
+                dataZoom: {
+                }
+            };
+            const baseChartSettings = BaseChartSettings(options);
+            return {
+                chartDataSettings: {
+                    dataEmpty: true,
+                    chartHeight: ChartConfig.baseHeight,
+                    extend: baseChartSettings.extend,
+                    chartSettings: {
+                        metrics: ['Frequency'],
+                        dimension: ['Date'],
+                        // axisSite: {right: ['Percent']},
+                        yAxisType: ['normal'],
+                        dataType: {
+                            'Frequency': 'normal',
                         },
-                        label: {
-                            show: true,
-                            position: 'top',
-                            textStyle: {
-                                color: '#222222'
-                            },
-                            formatter: function (params) {
-                                if (params.value == 0) {
-                                    return '';
-                                } else {
-                                    return params.value + '元';
-                                }
-                            }
-                        }
+                        // yAxisName: ['金额/元', '比率/%'],
+                        labelMap: {
+                            Date: '日期',
+                            Frequency: '次数',
+                        },
+                        area: true,
+                        // showLine: ['Percent']
+                    },
+                    chartData: {
+                        columns: ['Date', 'Frequency'],
+                        rows: []
                     }
-                },
-            },
-            charSettings: {
-                metrics: ['Frequency'],
-                dimension: ['Date'],
-                // axisSite: {right: ['Percent']},
-                yAxisType: ['normal'],
-                dataType: {
-                    'Frequency': 'normal',
-                },
-                // yAxisName: ['金额/元', '比率/%'],
-                labelMap: {
-                    Date: '日期',
-                    Frequency: '次数',
-                },
-                area: true,
-                // showLine: ['Percent']
-            },
-            chartData: {
-                columns: ['Date', 'Frequency'],
-                rows: []
+                }
             }
-        }),
+        }
+        ,
         mounted() {
-            var self = this;
+            let self = this;
             setTimeout(function () {
-                self.chartData.rows = [
+                self.chartDataSettings.chartData.rows = [
                     {
                         "Date": "2018-07-04",
                         "Frequency": 1
@@ -621,7 +553,7 @@
                         "Frequency": 1
                     }
                 ];
-                self.dataEmpty = false;
+                self.chartDataSettings.dataEmpty = false;
             }, 2000);
 
         }

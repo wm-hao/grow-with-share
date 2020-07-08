@@ -4,7 +4,7 @@
 </template>
 
 <script>
-    import ChartConfig from '../../../const/ChartConst';
+    import ChartConfig from '../../const/ChartConst';
     export default {
         name: "Recent10DaysAnalysis",
         data: () => ({
