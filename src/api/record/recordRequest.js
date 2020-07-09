@@ -1,4 +1,4 @@
-import {USER_ID} from "../../const/constant";
+import {USER_ID} from "../../const/Constant";
 import {post} from "../http";
 
 export function historyQryPagination(params, success, fail, err) {

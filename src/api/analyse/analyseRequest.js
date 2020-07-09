@@ -1,4 +1,4 @@
-import {USER_ID} from "../../const/constant";
+import {USER_ID} from "../../const/Constant";
 import {get, post} from "../http"
 
 export function analyseFrequency(params, success, fail, err) {

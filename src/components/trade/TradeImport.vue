@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import {HTTP_HEADER_TOKEN_VAL, HTTP_RESPONSE_SUCCESS_CODE, USER_ID} from "../../const/constant";
+    import {HTTP_HEADER_TOKEN_VAL, HTTP_RESPONSE_SUCCESS_CODE, USER_ID} from "../../const/Constant";
     export default {
         name: "TradeImport",
         data: () => {

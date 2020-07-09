@@ -1,9 +1,9 @@
 <template>
     <v-row class="pa-2">
-        <v-col lg="6" class="pa-2">
+        <v-col lg="6" sm="12" class="pa-2">
             <BaseHistogramChart :chart-data-settings="chartDataSettings.month"/>
         </v-col>
-        <v-col lg="6" class="pa-2">
+        <v-col lg="6" sm="12" class="pa-2">
             <BaseHistogramChart :chart-data-settings="chartDataSettings.year"/>
         </v-col>
     </v-row>
@@ -13,7 +13,7 @@
 <script>
     import ChartConfig from '../../../const/ChartConst';
     import BaseHistogramChart from "../BaseHistogramChart";
-    import BaseChartSettings from "../../../const/chartBase";
+    import BaseChartSettings from "../../../const/ChartBase";
 
     export default {
         components: {BaseHistogramChart},

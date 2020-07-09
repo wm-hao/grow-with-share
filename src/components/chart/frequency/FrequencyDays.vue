@@ -7,7 +7,7 @@
 <script>
     import ChartConfig from '../../../const/ChartConst';
     import BaseHistogramChart from "../BaseHistogramChart";
-    import BaseChartSettings from "../../../const/chartBase";
+    import BaseChartSettings from "../../../const/ChartBase";
 
     export default {
         name: "FrequencyDays",

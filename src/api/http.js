@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {HTTP_HEADER_TOKEN_KEY, HTTP_HEADER_TOKEN_VAL, HTTP_RESPONSE_SUCCESS_CODE, USER_ID} from "../const/constant";
+import {HTTP_HEADER_TOKEN_KEY, HTTP_HEADER_TOKEN_VAL, HTTP_RESPONSE_SUCCESS_CODE, USER_ID} from "../const/Constant";
 import {Message} from "element-ui";
 
 const http = axios.create({

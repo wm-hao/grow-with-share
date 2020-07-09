@@ -12,76 +12,77 @@ import TradeChartProfit from "./components/chart/TradeChartProfit";
 import TradeChartKeepDuration from "./components/chart/TradeChartKeepDuration";
 import FrequencyYearMonth from "./components/chart/frequency/FrequencyYearMonth";
 import FrequencyDays from "./components/chart/frequency/FrequencyDays";
+import RouterPathConst from "./const/RouterConst";
 
 Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/',
-        redirect: '/dashboard/index'
+        path: RouterPathConst.pathBase,
+        redirect: RouterPathConst.pathDashBoardIndex
     },
     {
-        path: '/dashboard',
-        name: 'DashBoard',
+        path: RouterPathConst.pathDashBoard,
+        name: RouterPathConst.pathDashBoard,
         component: DashBoard,
         children: [
             {
-                path: '/dashboard/index',
-                name: 'Index',
+                path: RouterPathConst.pathDashBoardIndex,
+                name: RouterPathConst.pathDashBoardIndex,
                 component: SystemIndex,
             },
             {
-                path: '/dashboard/trade/query',
-                name: 'TradeQuery',
+                path: RouterPathConst.pathDashBoardTradeQuery,
+                name: RouterPathConst.pathDashBoardTradeQuery,
                 component: TradeQuery,
             },
             {
-                path: '/dashboard/trade/edit',
-                name: 'TradeEdit',
+                path: RouterPathConst.pathDashBoardTradeEdit,
+                name: RouterPathConst.pathDashBoardTradeEdit,
                 component: TradeEdit,
                 children: [
                     {
-                        path: '/dashboard/trade/edit/insert',
-                        name: 'TradeEditInsert',
+                        path: RouterPathConst.pathDashBoardTradeInsert,
+                        name: RouterPathConst.pathDashBoardTradeInsert,
                         component: TradeInsert,
                     },
                     {
-                        path: '/dashboard/trade/edit/import',
-                        name: 'TradeEditImport',
+                        path: RouterPathConst.pathDashBoardTradeImport,
+                        name: RouterPathConst.pathDashBoardTradeImport,
                         component: TradeImport,
                     },
                 ]
             },
             {
-                path: '/dashboard/chart/frequency',
-                name: 'TradeChartFrequency',
+                path: RouterPathConst.pathDashBoardChartFrequency,
+                name: RouterPathConst.pathDashBoardChartFrequency,
                 component: TradeChartFrequency,
                 children: [
-                        {
-                            path: '/dashboard/chart/frequency/days',
-                            name: 'TradeChartFrequencyDays',
-                            component: FrequencyDays,
-                        },
-                        {
-                            path: '/dashboard/chart/frequency/yearmonth',
-                            name: 'TradeChartFrequencyYearMonth',
-                            component: FrequencyYearMonth,
-                        },
-                    ]
+                    {
+                        path: RouterPathConst.pathDashBoardChartFrequencyDays,
+                        name: RouterPathConst.pathDashBoardChartFrequencyDays,
+                        component: FrequencyDays,
+                    },
+                    {
+                        path: RouterPathConst.pathDashBoardChartFrequencyYearMonth,
+                        name: RouterPathConst.pathDashBoardChartFrequencyYearMonth,
+                        component: FrequencyYearMonth,
+                    },
+                ]
             },
             {
-                path: '/dashboard/chart/top',
-                name: 'TradeChartTop',
+                path: RouterPathConst.pathDashBoardChartTop,
+                name: RouterPathConst.pathDashBoardChartTop,
                 component: TradeChartTop,
             },
             {
-                path: '/dashboard/chart/profit',
-                name: 'TradeChartProfit',
+                path: RouterPathConst.pathDashBoardChartProfit,
+                name: RouterPathConst.pathDashBoardChartProfit,
                 component: TradeChartProfit,
             },
             {
-                path: '/dashboard/chart/keep',
-                name: 'TradeChartKeepDuration',
+                path: RouterPathConst.pathDashBoardChartKeep,
+                name: RouterPathConst.pathDashBoardChartKeep,
                 component: TradeChartKeepDuration,
             }
         ]
