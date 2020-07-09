@@ -1,7 +1,7 @@
 <template>
     <v-row class="mx-2 flex-column" style="height: 350px">
         <v-col lg="12">
-            <div class="text-lg-h6 pa-2">Recent Trade Records</div>
+            <div class="text-lg-h6 font-weight-bold pa-2">Recent Trade Records</div>
             <v-data-table
                     :headers="headers"
                     :items="desserts"
@@ -21,6 +21,7 @@
                     text: '股票名称',
                     align: 'start',
                     value: 'name',
+                    class: 'my-header'
                 },
                 {text: '买入时间', value: 'buyTime'},
                 {text: '卖出时间', value: 'sellTime'},

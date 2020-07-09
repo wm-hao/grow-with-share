@@ -11,7 +11,8 @@ const RouterPathConst = {
     pathDashBoardChartFrequencyYearMonth: "/dashboard/chart/frequency/yearmonth",
     pathDashBoardChartTop: "/dashboard/chart/top",
     pathDashBoardChartKeep: "/dashboard/chart/keep",
-    pathDashBoardChartProfit: "/dashboard/chart/profit"
+    pathDashBoardChartProfit: "/dashboard/chart/profit",
+    pathDashBoardAsset: "/dashboard/asset"
 };
 
 export default RouterPathConst;

@@ -33,6 +33,8 @@
 </template>
 
 <script>
+    import RouterPathConst from "../const/RouterConst";
+
     export default {
         name: "SideBar",
         data: () => (
@@ -42,7 +44,7 @@
                         id: '1',
                         name: '系统首页',
                         icon: 'mdi-home',
-                        to: '/dashboard/index'
+                        to: RouterPathConst.pathDashBoardIndex
                     },
                     {
                         id: '2',
@@ -54,13 +56,13 @@
                                 id: '2-1',
                                 name: '记录查询',
                                 icon: 'mdi-table-search',
-                                to: '/dashboard/trade/query'
+                                to: RouterPathConst.pathDashBoardTradeQuery
                             },
                             {
                                 id: '2-2',
                                 name: '记录新增',
                                 icon: 'mdi-table-edit',
-                                to: '/dashboard/trade/edit/insert'
+                                to: RouterPathConst.pathDashBoardTradeEdit
                             },
                         ]
                     },
@@ -74,7 +76,7 @@
                         id: '4',
                         name: '资产信息',
                         icon: 'mdi-wallet',
-                        to: '/dashboard/assets'
+                        to: RouterPathConst.pathDashBoardAsset
                     },
                     {
                         id: '5',

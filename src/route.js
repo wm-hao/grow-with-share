@@ -13,6 +13,7 @@ import TradeChartKeepDuration from "./components/chart/TradeChartKeepDuration";
 import FrequencyYearMonth from "./components/chart/frequency/FrequencyYearMonth";
 import FrequencyDays from "./components/chart/frequency/FrequencyDays";
 import RouterPathConst from "./const/RouterConst";
+import AccountBalance from "./components/asset/AccountBalance";
 
 Vue.use(VueRouter);
 
@@ -84,6 +85,11 @@ const routes = [
                 path: RouterPathConst.pathDashBoardChartKeep,
                 name: RouterPathConst.pathDashBoardChartKeep,
                 component: TradeChartKeepDuration,
+            },
+            {
+                path: RouterPathConst.pathDashBoardAsset,
+                name: RouterPathConst.pathDashBoardAsset,
+                component: AccountBalance
             }
         ]
     }

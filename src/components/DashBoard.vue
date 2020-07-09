@@ -1,7 +1,7 @@
 <template>
     <v-app>
-        <v-app-bar app color="pink darken-1">
-            <v-app-bar-nav-icon @click="drawer = true" color="white"></v-app-bar-nav-icon>
+        <v-app-bar app color="pink darken-1" clipped-left>
+            <v-app-bar-nav-icon @click="drawer = !drawer" color="white"></v-app-bar-nav-icon>
             <v-spacer/>
 
             <v-btn icon @click="handleGoHome" class="">
@@ -13,7 +13,7 @@
         </v-app-bar>
         <v-navigation-drawer
                 app
-                temporary
+                clipped
                 v-model="drawer"
         >
             <SideBar/>
