@@ -2,21 +2,16 @@
     <v-card flat class="ma-2">
         <v-row class="ma-2">
             <v-col lg="7" sm="12">
-                <v-card class="d-flex justify-center card_height_first_row flex-column py-2" tile raised>
+
                     <Recent10DaysAnalysis/>
-                </v-card>
             </v-col>
             <v-col lg="5" sm="12">
-                <v-card class="d-flex justify-center card_height_first_row py-2" tile raised>
-                    <Preview/>
-                </v-card>
+                <AssetPie/>
             </v-col>
         </v-row>
         <v-row class="ma-2" sm="12">
             <v-col lg="12">
-                <v-card class="d-flex justify-center card_height_first_row py-2" tile raised>
-                    <RecentTradeRecords/>
-                </v-card>
+                <RecentTradeRecords/>
             </v-col>
         </v-row>
     </v-card>
@@ -24,14 +19,12 @@
 
 <script>
     import Recent10DaysAnalysis from "./Recent10DaysAnalysis";
-    import Preview from "./Preview";
     import RecentTradeRecords from "./RecentTradeRecords";
+    import AssetPie from "../asset/AssetPie";
 
     export default {
-        components: { RecentTradeRecords, Preview, Recent10DaysAnalysis},
-        data: () => ({
-
-        })
+        components: {AssetPie, RecentTradeRecords, Recent10DaysAnalysis},
+        data: () => ({})
     }
 </script>
 

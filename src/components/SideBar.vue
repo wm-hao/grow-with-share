@@ -70,7 +70,7 @@
                         id: '3',
                         name: '交易日志',
                         icon: 'mdi-notebook',
-                        to: '/dashboard/journal'
+                        to: RouterPathConst.pathDashBoardJournal
                     },
                     {
                         id: '4',

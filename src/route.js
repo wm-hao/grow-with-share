@@ -14,6 +14,7 @@ import FrequencyYearMonth from "./components/chart/frequency/FrequencyYearMonth"
 import FrequencyDays from "./components/chart/frequency/FrequencyDays";
 import RouterPathConst from "./const/RouterConst";
 import AccountBalance from "./components/asset/AccountBalance";
+import JournalPanel from "./components/journal/JournalPanel";
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ const routes = [
                 path: RouterPathConst.pathDashBoardTradeQuery,
                 name: RouterPathConst.pathDashBoardTradeQuery,
                 component: TradeQuery,
+            },
+            {
+                path: RouterPathConst.pathDashBoardJournal,
+                name: RouterPathConst.pathDashBoardJournal,
+                component: JournalPanel
             },
             {
                 path: RouterPathConst.pathDashBoardTradeEdit,

@@ -1,5 +1,8 @@
 <template>
-    <BaseHistogramChart :chart-data-settings="chartDataSettings"/>
+    <v-card raised="">
+        <BaseHistogramChart :chart-data-settings="chartDataSettings"/>
+    </v-card>
+
 </template>
 
 <script>
@@ -12,8 +15,8 @@
         components: {BaseHistogramChart},
         data: () => {
             let options = {
-                title: 'Recent 10 Days Analyse',
-                axisLabel: 0
+                title: '近10日数据总览',
+                axisLabel: 0,
             };
             const baseChartSettings = BaseChartSettings(options);
             return {

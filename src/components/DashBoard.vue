@@ -1,7 +1,7 @@
 <template>
     <v-app>
-        <v-app-bar app color="pink darken-1" clipped-left>
-            <v-app-bar-nav-icon @click="drawer = !drawer" color="white"></v-app-bar-nav-icon>
+        <v-app-bar app color="pink darken-1" clipped-left="">
+            <v-app-bar-nav-icon @click="drawer = true" color="white"></v-app-bar-nav-icon>
             <v-spacer/>
 
             <v-btn icon @click="handleGoHome" class="">
@@ -13,15 +13,11 @@
         </v-app-bar>
         <v-navigation-drawer
                 app
-                clipped
+                clipped=""
+                temporary=""
                 v-model="drawer"
         >
             <SideBar/>
-            <!-- <template v-slot:append>
-                 <div class="pa-4">
-                     <v-btn block class="text-center" text>退出</v-btn>
-                 </div>
-             </template>-->
         </v-navigation-drawer>
         <v-main>
             <v-container fluid class="my-2 px-4 py-1">
@@ -29,7 +25,7 @@
             </v-container>
         </v-main>
 
-        <v-footer app color="#f5f5f5" class="d-flex justify-center">
+        <v-footer app  class="d-flex flex-column justify-center">
             <Copyright/>
         </v-footer>
     </v-app>

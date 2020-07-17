@@ -38,51 +38,51 @@ const BaseChartSettings = function (options) {
                         global: false
                     }
                 },
-                itemStyle: {
-                    barBorderRadius: 1,
-                    color: {
-                        type: 'linear',
-                        x: 0,
-                        y: 0,
-                        x2: 0,
-                        y2: 1,
-                        colorStops: [{
-                            offset: 0, color: '#FF80AB' // 0% 处的颜色
-                        }, {
-                            offset: 1, color: '#4FC3F7' // 100% 处的颜色
-                        }],
-                    },
-                    label: {
-                        show: true,
-                        position: 'top',
-                        textStyle: {
-                            color: '#222222'
-                        },
-                        formatter: function (params) {
-                            if (params.value == 0) {
-                                return '';
-                            } else {
-                                return params.value + '元';
-                            }
-                        }
-                    }
-                }
+
             },
         },
     };
-    if (options && options.dataZoom) {
-        baseChartSettings.extend.dataZoom = [
-            {
-                // id: 'dataZoomX',
-                type: 'slider',
-                xAxisIndex: [0],
-                filterMode: 'filter',
-                start: options.dataZoom.start || 50,
-                end: options.dataZoom.end || 80,
-                height: 14,
-                // fillerColor: 'rgba(216,27,96, 0.8)'
+    if (options) {
+        if (options.dataZoom) {
+            baseChartSettings.extend.dataZoom = [
+                {
+                    // id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter',
+                    start: options.dataZoom.start || 50,
+                    end: options.dataZoom.end || 80,
+                    height: 14,
+                    // fillerColor: 'rgba(216,27,96, 0.8)'
+                }
+            ]
+        }
+        if (!options.itemStyleOrigin) {
+            baseChartSettings.extend.series.itemStyle = {
+                barBorderRadius: 1,
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0, color: '#FF80AB' // 0% 处的颜色
+                    }, {
+                        offset: 1, color: '#4FC3F7' // 100% 处的颜色
+                    }],
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    textStyle: {
+                        color: '#222222'
+                    },
+                }
             }
-        ]
+
+        }
+
     }
     return baseChartSettings;
 };

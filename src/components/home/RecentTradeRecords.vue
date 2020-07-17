@@ -1,16 +1,27 @@
 <template>
-    <v-row class="mx-2 flex-column" style="height: 350px">
-        <v-col lg="12">
-            <div class="text-lg-h6 font-weight-bold pa-2">Recent Trade Records</div>
-            <v-data-table
-                    :headers="headers"
-                    :items="desserts"
-                    calculate-widths
-                    hide-default-footer
-            />
-        </v-col>
+    <v-card raised="" class="d-flex flex-column" style="height: 350px">
+        <div class="text-lg-h6 font-weight-bold pa-2">最近交易</div>
+        <v-data-table
+                :headers="headers"
+                :items="desserts"
+                calculate-widths
+                hide-default-footer
+        >
+            <template v-slot:header.name="{ header } ">
+                <span class="text-body-2">{{header.text}}</span>
+            </template>
+            <template v-slot:header.buyTime="{ header } ">
+                <span class="text-body-2">{{header.text}}</span>
+            </template>
+            <template v-slot:header.sellTime="{ header } ">
+                <span class="text-body-2">{{header.text}}</span>
+            </template>
+            <template v-slot:header.profit="{ header } ">
+                <span class="text-body-2">{{header.text}}</span>
+            </template>
+        </v-data-table>
 
-    </v-row>
+    </v-card>
 </template>
 <script>
     export default {
@@ -21,7 +32,6 @@
                     text: '股票名称',
                     align: 'start',
                     value: 'name',
-                    class: 'my-header'
                 },
                 {text: '买入时间', value: 'buyTime'},
                 {text: '卖出时间', value: 'sellTime'},
@@ -73,6 +83,9 @@
     }
 </script>
 
-<style scoped>
 
+<style scoped>
+    .my-Header {
+        background: black;
+    }
 </style>

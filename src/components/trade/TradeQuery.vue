@@ -7,7 +7,7 @@
 
             <v-card raised="" tile class="pa-2 ma-2" size="small" style="width: 100%">
                 <v-row>
-                    <v-col lg="11">
+                    <v-col lg="12" sm="12">
                         <el-form :model="qryParams" :rules="rules" ref="qryParams" size="small" :inline="true"
                                  label-width="120">
                             <el-form-item label="股票名称" prop="name" size="small">
@@ -42,19 +42,6 @@
                             </el-form-item>
                         </el-form>
                     </v-col>
-                    <v-col lg="1">
-<!--                        <v-row class="mb-1">-->
-<!--                            <el-button type="primary" @click="handleSubmit('qryParams')" size="medium" class="my-1"-->
-<!--                                       style="width: 88px">查询-->
-<!--                            </el-button>-->
-<!--                        </v-row>-->
-                        <v-row>
-                            <el-button @click="resetForm('qryParams')" size="medium" class="my-1" style="width: 88px">
-                                重置
-                            </el-button>
-                        </v-row>
-
-                    </v-col>
                 </v-row>
 
             </v-card>
@@ -62,7 +49,6 @@
 
             <v-data-table
                     :no-data-text="noData"
-                    style="width: 100%;overflow-y: auto;overflow-x: hidden"
                     :headers="headers"
                     :items="records"
                     class="elevation-4 ma-2 pa-2"
@@ -72,19 +58,20 @@
                     :items-per-page.sync="perPage"
                     @update:items-per-page="query"
                     @update:page="query"
+                    hide-default-header=""
+                    style="width: 100%;"
             >
                 <template v-slot:top>
                     <v-row>
-                        <v-col lg="1" class=" ma-2">
-                            <v-btn color="pink darken-1" block="" class="white--text" @click="handleSubmit('qryParams')">查询记录</v-btn>
+                        <v-col lg="2" class="ma-2 d-flex align-center">
+                            <v-btn color="pink darken-1" class="white--text"
+                                   @click="handleSubmit('qryParams')">查询记录
+                            </v-btn>
                         </v-col>
                         <v-spacer/>
-                        <v-col lg="1" class="ma-2">
+                        <v-col lg="2" class="ma-2 d-flex justify-center align-center">
                             <v-btn color="primary" class="white--text" @click.stop="dialog = true">新增记录</v-btn>
                             <v-dialog v-model="dialog" max-width="600px" persistent>
-                                <!--                                    <template v-slot:activator="{ on }">-->
-                                <!--                                        <v-btn color="primary" class="ma-2" v-on="on">新增记录</v-btn>-->
-                                <!--                                    </template>-->
                                 <v-card>
                                     <v-card-title>
                                         <span class="headline">{{ formTitle }}</span>
@@ -139,6 +126,15 @@
                         </v-col>
                     </v-row>
 
+                </template>
+                <template v-slot:header="{ props: { headers } }">
+                    <thead>
+                    <tr>
+                        <th v-for="header in headers" :key="header.value">
+                            <span class="text-body-2">{{header.text}}</span>
+                        </th>
+                    </tr>
+                    </thead>
                 </template>
                 <template v-slot:item.actions="{ item }">
                     <v-icon small class="mr-2" @click="editItem(item)">
@@ -203,7 +199,8 @@
                         text: '股票名称',
                         align: 'start',
                         sortable: false,
-                        value: 'name'
+                        value: 'name',
+                        colspan: 2
                     },
                     {text: '股票别名', value: 'alias'},
                     {text: '股票代码', value: 'code'},
@@ -348,5 +345,10 @@
     .col-lg-3 col {
         padding-top: 0;
         padding-bottom: 0;
+    }
+
+    .th > text-start {
+        background: green ! important;
+        color: red;
     }
 </style>

@@ -20,7 +20,7 @@
         props: ['name'],
         name: "FrequencyYearMonth",
         data: () => {
-            let year = BaseChartSettings({title: '年交易频率'});
+            let year = BaseChartSettings({title: '年交易频率', });
             let month = BaseChartSettings({title: '月交易频率'});
             return {
                 chartDataSettings: {
