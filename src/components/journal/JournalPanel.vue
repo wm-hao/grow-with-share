@@ -1,23 +1,22 @@
 <template>
     <v-card flat="" class="ma-2">
-        <v-row class="pa-2">
-            <v-col lg="9" sm="12">
-                <JournalRecord/>
-            </v-col>
-            <v-col lg="3" sm="12">
-                <MindTodoList/>
-            </v-col>
-        </v-row>
+        <v-card flat="" class="ma-2 pa-2">
+            <MindTodo/>
+        </v-card>
+        <v-card flat="" class="ma-2 pa-2">
+            <JournalRecord/>
+        </v-card>
+
     </v-card>
 </template>
 
 <script>
     import JournalRecord from "./JournalRecord";
-    import MindTodoList from "./MindTodoList";
+    import MindTodo from "./MindTodo";
 
     export default {
         name: "JournalPanel",
-        components: {MindTodoList, JournalRecord}
+        components: {MindTodo, JournalRecord}
     }
 </script>
 
