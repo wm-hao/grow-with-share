@@ -24,6 +24,7 @@
             const baseChartSettings = BaseChartSettings(options);
             return {
                 chartDataSettings: {
+                    dataEmpty: true,
                     chartHeight: ChartConfig.baseHeight,
                     extend: baseChartSettings.extend,
                     chartSettings: {
@@ -40,7 +41,7 @@
                             profit: '利润',
                             total: '总计'
                         },
-                        showLine: ['total']
+                        showLine: ['total'],
                     },
                     chartData: {
                         columns: ['date', 'profit', 'total'],
@@ -60,6 +61,7 @@
                 };
                 balanceQry(qryParams, (json) => {
                     self.chartDataSettings.chartData.rows = json.rows;
+                    self.chartDataSettings.dataEmpty = false;
                 }, (json) => {
                     self.$message.error(json.message);
                 })

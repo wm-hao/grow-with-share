@@ -1,7 +1,7 @@
 <template>
     <v-card raised="">
         <ve-pie :data="chartData" :height="baseHeight" width="100%" :settings="charSettings"
-                :extend="extend"></ve-pie>
+                :extend="extend" :data-empty="dataEmpty"></ve-pie>
     </v-card>
 
 </template>
@@ -14,6 +14,7 @@
     export default {
         name: "AssetPie",
         data: () => ({
+            dataEmpty: true,
             baseHeight: ChartConfig.baseHeight,
             extend: {
                 legend: {
@@ -41,15 +42,18 @@
                 };
                 balanceQry(qryParams, (json) => {
                     let balance = json.rows[0];
-                    let fundAmount = balance.fundAmount;
-                    let cashAmount = balance.cashAmount;
-                    let shareAmount = balance.shareAmount;
-                    var rows = [
-                        {'Category': '股票', 'Value': shareAmount},
-                        {'Category': '现金', 'Value': cashAmount},
-                        {'Category': '基金', 'Value': fundAmount},
-                    ]
-                    self.chartData.rows = rows;
+                    if (balance) {
+                        let fundAmount = balance.fundAmount;
+                        let cashAmount = balance.cashAmount;
+                        let shareAmount = balance.shareAmount;
+                        let rows = [
+                            {'Category': '股票', 'Value': shareAmount},
+                            {'Category': '现金', 'Value': cashAmount},
+                            {'Category': '基金', 'Value': fundAmount},
+                        ];
+                        self.chartData.rows = rows;
+                        self.dataEmpty = false;
+                    }
                 }, (json) => {
                     self.$message.error(json.message);
                 })
