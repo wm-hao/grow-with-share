@@ -23,11 +23,11 @@
         components: {},
         data: () => ({
             tabs: [
-                {
-                    icon: 'mdi-table-edit',
-                    name: '手工录入',
-                    to: '/dashboard/trade/edit/insert'
-                },
+                // {
+                //     icon: 'mdi-table-edit',
+                //     name: '手工录入',
+                //     to: '/dashboard/trade/edit/insert'
+                // },
                 {
                     icon: 'mdi-file-excel',
                     name: '文件导入',

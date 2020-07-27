@@ -1,5 +1,5 @@
-export const HTTP_RESPONSE_SUCCESS_CODE = "1";
-export const HTTP_RESPONSE_FAIL_CODE = "0";
+export const HTTP_RESPONSE_SUCCESS_CODE = "SUCCESS";
+export const HTTP_RESPONSE_FAIL_CODE = "FAIL";
 
 export const STATUS_CODE_TRUE = "1";
 

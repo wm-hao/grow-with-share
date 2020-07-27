@@ -25,7 +25,7 @@
             </v-container>
         </v-main>
 
-        <v-footer app  class="d-flex flex-column justify-center">
+        <v-footer app class="d-flex flex-column justify-center">
             <Copyright/>
         </v-footer>
     </v-app>

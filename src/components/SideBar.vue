@@ -62,7 +62,7 @@
                                 id: '2-2',
                                 name: '记录新增',
                                 icon: 'mdi-table-edit',
-                                to: RouterPathConst.pathDashBoardTradeEdit
+                                to: RouterPathConst.pathDashBoardTradeImport
                             },
                         ]
                     },

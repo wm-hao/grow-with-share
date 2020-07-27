@@ -5,6 +5,8 @@
 
 <script>
     import ChartConfig from '../../const/ChartConst';
+    import {balanceQry} from "../../api/balance/balanceRequest";
+    import {USER_ID} from "../../const/Constant";
 
     export default {
         name: "Preview",
@@ -19,13 +21,37 @@
             charSettings: {},
             chartData: {
                 columns: ['Category', 'Value'],
-                rows: [
-                    {'Category': '股票', 'Value': 14000},
-                    {'Category': '现金', 'Value': 13030},
-                    {'Category': '基金', 'Value': 498},
-                ]
+                rows: []
             }
-        })
+        }),
+        methods: {
+            fetchData: function () {
+                let self = this;
+                let qryParams = {
+                    "page": 0,
+                    "size": 1,
+                    "timeOrder": "DESC",
+                };
+                balanceQry(qryParams, (json) => {
+                    let balance = json.rows[0];
+                    let fundAmount = balance.fundAmount;
+                    let cashAmount = balance.cashAmount;
+                    let shareAmount = balance.shareAmount;
+                    var rows = [
+                        {'Category': '股票', 'Value': shareAmount},
+                        {'Category': '现金', 'Value': cashAmount},
+                        {'Category': '基金', 'Value': fundAmount},
+                    ]
+                    self.chartData.rows = rows;
+                }, (json) => {
+                    self.$message.error(json.message);
+                })
+            }
+        },
+        created() {
+            sessionStorage.setItem(USER_ID, "1");
+            this.fetchData();
+        }
     }
 </script>
 

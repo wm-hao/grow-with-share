@@ -3,11 +3,11 @@ import {HTTP_HEADER_TOKEN_KEY, HTTP_HEADER_TOKEN_VAL, HTTP_RESPONSE_SUCCESS_CODE
 import {Message} from "element-ui";
 
 const http = axios.create({
-    baseURL: 'http://localhost:11111/',
+    baseURL: 'http://localhost:8090/',
     timeout: 10000,
     headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        "Access-Control-Allow-Origin": '*'
+        // "Content-Type": "application/json;charset=utf-8",
+        // "Access-Control-Allow-Origin": '*'
     }
 });
 
@@ -54,6 +54,11 @@ export function post(url, params, success, fail, err) {
     ).catch(function (error) {
         if (err) {
             err(error);
+        } else {
+            Message({
+                message: error.message || '服务异常',
+                type: 'error'
+            })
         }
     })
 }

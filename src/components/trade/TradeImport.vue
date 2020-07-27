@@ -1,24 +1,29 @@
 <template>
     <v-card flat>
-        <v-row justify="center" class="ma-0" style="height: 100px" align="center">
+        <!--<v-row justify="center" class="ma-0" align="center">
             <v-col cols="11">
-                <v-file-input accept=".xlsx" show-size counter label="请上传正确格式的xlsx格式文件" clearable class="mx-5"
-                              full-width accpet
-                              @change="fileChange" ref="file" v-model="fileName"></v-file-input>
+
             </v-col>
             <v-col cols="1">
                 <v-row align="center" justify="start">
-                    <v-col>
-                        <v-btn color="primary" @click="upload">导入到后台</v-btn>
-                    </v-col>
+
                 </v-row>
             </v-col>
-        </v-row>
+        </v-row>-->
+        <v-file-input accept=".xlsx" show-size counter label="请上传正确格式的xlsx格式文件" clearable
+
+                      @change="fileChange" ref="file" v-model="fileName"></v-file-input>
+
+        <div class="d-flex justify-center">
+            <v-btn color="primary" @click="upload">导入到后台</v-btn>
+        </div>
+
     </v-card>
 </template>
 
 <script>
     import {HTTP_HEADER_TOKEN_VAL, HTTP_RESPONSE_SUCCESS_CODE, USER_ID} from "../../const/Constant";
+
     export default {
         name: "TradeImport",
         data: () => {
@@ -45,7 +50,7 @@
                             HTTP_HEADER_TOKEN_KEY: sessionStorage.getItem(HTTP_HEADER_TOKEN_VAL) || ''
                         }
                     };
-                    this.$http.post("share/insertByFile", params, config).then(function (response) {
+                    this.$http.post("trade/import", params, config).then(function (response) {
                         if (response.data.code === HTTP_RESPONSE_SUCCESS_CODE) {
                             self.$message.success(response.data.message);
                             self.file = null;
