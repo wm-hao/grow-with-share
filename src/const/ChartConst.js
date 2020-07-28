@@ -1,4 +1,5 @@
 const ChartConfig = {
+    middleHeight: '600px',
     baseHeight: '350px',
     baseWidth: '300px',
     titleLeft: '10px',

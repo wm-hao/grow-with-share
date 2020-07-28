@@ -14,7 +14,7 @@ const BaseChartSettings = function (options) {
             },
             xAxis: {
                 axisLabel: {
-                    interval: options.axisLabel || 2
+                    interval: options.axisLabel === 0 ? 0 : options.axisLabel || 2
                 }
             },
             series: {

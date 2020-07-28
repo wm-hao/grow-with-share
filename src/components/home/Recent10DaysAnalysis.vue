@@ -61,7 +61,9 @@
                 };
                 balanceQry(qryParams, (json) => {
                     self.chartDataSettings.chartData.rows = json.rows;
-                    self.chartDataSettings.dataEmpty = false;
+                    if (json.rows.length > 0) {
+                        self.chartDataSettings.dataEmpty = false;
+                    }
                 }, (json) => {
                     self.$message.error(json.message);
                 })

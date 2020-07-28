@@ -14,38 +14,41 @@
     import ChartConfig from '../../../const/ChartConst';
     import BaseHistogramChart from "../BaseHistogramChart";
     import BaseChartSettings from "../../../const/ChartBase";
+    import {recordFrequencyQry} from "../../../api/record/recordRequest";
 
     export default {
         components: {BaseHistogramChart},
         props: ['name'],
-        name: "FrequencyYearMonth",
+        name: "totalYearMonth",
         data: () => {
-            let year = BaseChartSettings({title: '年交易频率', });
+            let year = BaseChartSettings({title: '年交易频率', axisLabel: 0});
             let month = BaseChartSettings({title: '月交易频率'});
             return {
                 chartDataSettings: {
                     month: {
+                        dataZoom: {
+                            type: 'slider',
+                            start: 20,
+                            end: 80,
+                            height: 10
+                        },
                         dataEmpty: true,
                         chartHeight: ChartConfig.baseHeight,
                         extend: month.extend,
                         chartSettings: {
-                            metrics: ['Frequency'],
-                            dimension: ['Date'],
-                            // axisSite: {right: ['Percent']},
+                            metrics: ['total'],
+                            dimension: ['date'],
                             yAxisType: ['normal'],
                             dataType: {
-                                'Frequency': 'normal',
+                                'total': 'normal',
                             },
-                            // yAxisName: ['金额/元', '比率/%'],
                             labelMap: {
-                                Date: '日期',
-                                Frequency: '次数',
+                                date: '日期',
+                                total: '次数',
                             },
-                            area: true,
-                            // showLine: ['Percent']
                         },
                         chartData: {
-                            columns: ['Date', 'Frequency'],
+                            columns: ['date', 'total'],
                             rows: []
                         }
                     },
@@ -54,87 +57,38 @@
                         chartHeight: ChartConfig.baseHeight,
                         extend: year.extend,
                         chartSettings: {
-                            metrics: ['Frequency'],
-                            dimension: ['Date'],
-                            // axisSite: {right: ['Percent']},
+                            metrics: ['total'],
+                            dimension: ['date'],
                             yAxisType: ['normal'],
                             dataType: {
-                                'Frequency': 'normal',
+                                'total': 'normal',
                             },
-                            // yAxisName: ['金额/元', '比率/%'],
                             labelMap: {
-                                Date: '日期',
-                                Frequency: '次数',
+                                date: '日期',
+                                total: '次数',
                             },
-                            area: true,
-                            // showLine: ['Percent']
                         },
                         chartData: {
-                            columns: ['Date', 'Frequency'],
+                            columns: ['date', 'total'],
                             rows: []
                         }
                     }
                 }
             }
         },
-        mounted() {
+        created() {
             let self = this;
-            setTimeout(function () {
-                self.chartDataSettings.month.chartData.rows = [
-                    {
-                        "Date": "2018-07",
-                        "Frequency": 10
-                    },
-                    {
-                        "Date": "2018-08",
-                        "Frequency": 20
-                    },
-                    {
-                        "Date": "2018-09",
-                        "Frequency": 4
-                    },
-                    {
-                        "Date": "2018-11",
-                        "Frequency": 12
-                    },
-                    {
-                        "Date": "2019-09",
-                        "Frequency": 25
-                    },
-                    {
-                        "Date": "2020-02",
-                        "Frequency": 13
-                    },
-                    {
-                        "Date": "2020-03",
-                        "Frequency": 3
-                    },
-                    {
-                        "Date": "2020-06",
-                        "Frequency": 8
-                    },
-                ]
-                ;
+            recordFrequencyQry({type: "month"}, (json) => {
+                self.chartDataSettings.month.chartData.rows = json.rows;
                 self.chartDataSettings.month.dataEmpty = false;
-            }, 2000);
-            setTimeout(function () {
-                self.chartDataSettings.year.chartData.rows = [
-                    {
-                        "Date": "2018",
-                        "Frequency": 33
-                    },
-                    {
-                        "Date": "2019",
-                        "Frequency": 167
-                    },
-                    {
-                        "Date": "2020",
-                        "Frequency": 49
-                    },
-                ]
-                ;
+                let start = (20 >= json.total ? 0 : (1 - 20 / json.total) * 100);
+                self.chartDataSettings.month.dataZoom.start = start;
+
+            });
+            recordFrequencyQry({type: "year"}, (json) => {
                 self.chartDataSettings.year.dataEmpty = false;
-            }, 2000);
+                self.chartDataSettings.year.chartData.rows = json.rows;
+            });
         }
     }
 </script>
