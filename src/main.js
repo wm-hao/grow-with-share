@@ -9,13 +9,14 @@ import 'v-charts/lib/style.css'
 import http from "./api/http";
 import VueCookies from 'vue-cookies'
 import './project.css'
+
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.use(VueCookies);
 Vue.use(VCharts);
 Vue.prototype.$http = http;
 new Vue({
-  vuetify,
-  router,
-  render: h => h(App)
+    vuetify,
+    router,
+    render: h => h(App)
 }).$mount('#app')

@@ -25,16 +25,15 @@
                                 <el-form-item label="交易类型" prop="payType" size="small">
                                     <el-select v-model="qryParams.payType" placeholder="请选择交易类型"
                                                style="max-width: 168px">
-                                        <el-option label="卖出" value="SELL"></el-option>
-                                        <el-option label="买入" value="BUY"></el-option>
-                                        <el-option label="红利" value="BOUNS"></el-option>
+                                        <el-option v-for="item in payTypes" :label="item.text" :value="item.value"
+                                                   :key="item.value"/>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="时间排序" prop="timeOrder" size="small">
                                     <el-select v-model="qryParams.timeOrder" placeholder="请选择时间排序方式"
                                                style="max-width: 168px">
-                                        <el-option label="由远到近" value="ASC"></el-option>
-                                        <el-option label="由近到远" value="DESC"></el-option>
+                                        <el-option v-for="item in timeOrder" :label="item.text" :value="item.value"
+                                                   :key="item.value"/>
                                     </el-select>
                                 </el-form-item>
                                 <el-form-item label="开始日期" prop="startTime" size="small">
@@ -69,7 +68,7 @@
                     :items-per-page.sync="perPage"
                     @update:items-per-page="query"
                     @update:page="query"
-                    hide-default-header=""
+
                     style="width: 100%;"
             >
                 <template v-slot:top>
@@ -98,15 +97,15 @@
                                                                   label="股票代码"></v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.unitPrice"
+                                                    <v-text-field v-model="editedItem.unitPrice" type="number"
                                                                   label="交易价格"></v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.payCount"
+                                                    <v-text-field v-model="editedItem.payCount" type="number"
                                                                   label="交易数量"></v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field v-model="editedItem.payAmount"
+                                                    <v-text-field v-model="editedItem.payAmount" type="number"
                                                                   label="交易金额"></v-text-field>
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="4">
@@ -116,6 +115,12 @@
                                                 <v-col cols="12" sm="6" md="4">
                                                     <v-text-field v-model="editedItem.payTime"
                                                                   label="交易时间"></v-text-field>
+
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field v-model="editedItem.fee" type="number"
+                                                                  label="手续费"></v-text-field>
+
                                                 </v-col>
                                             </v-row>
                                         </v-container>
@@ -133,23 +138,57 @@
                     </v-row>
 
                 </template>
-                <template v-slot:header="{ props: { headers } }">
-                    <thead>
-                    <tr>
-                        <th v-for="header in headers" :key="header.value">
-                            <span class="text-body-2">{{header.text}}</span>
-                        </th>
-                    </tr>
-                    </thead>
+                <!--                <template v-slot:header="{ props: { headers } }">-->
+                <!--                    <thead>-->
+                <!--                    <tr>-->
+                <!--                        <th v-for="header in headers" :key="header.value">-->
+                <!--                            <span class="text-body-2">{{header.text}}</span>-->
+                <!--                        </th>-->
+                <!--                    </tr>-->
+                <!--                    </thead>-->
+                <!--                </template>-->
+                <template v-slot:header.shareName="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.shareCode="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.payTime="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.payCount="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.payAmount="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.payType="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.unitPrice="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.alias="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.operations="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
                 </template>
                 <template v-slot:item.payType="{ item }">
                     {{ getPayType(item.payType) }}
                 </template>
-                <template v-slot:item.actions="{ item }">
-                    <v-icon small class="mr-2" @click="editItem(item)">
+                <template v-slot:item.operations="{ item }">
+                    <v-icon
+                            small
+                            class="mr-2"
+                            @click="editItem(item)"
+                    >
                         mdi-pencil
                     </v-icon>
-                    <v-icon small @click="deleteItem(item)">
+                    <v-icon
+                            small
+                            @click="deleteItem(item)"
+                    >
                         mdi-delete
                     </v-icon>
                 </template>
@@ -160,7 +199,8 @@
 
 <script>
 
-    import {historyQryPagination, recordSave, recordUpdate} from "../../api/record/recordRequest";
+    import {historyQryPagination, recordDelete, recordSave, recordUpdate} from "../../api/record/recordRequest";
+    import {ORDER, SHARE_PAY_TYPES} from "../../const/Constant";
 
     export default {
         name: "TradeQuery",
@@ -186,27 +226,8 @@
                     size: '',
                     timeOrder: ''
                 },
-                payTypes: [
-                    {
-                        value: 'SELL',
-                        text: '卖出'
-                    }, {
-                        value: 'BUY',
-                        text: '买入'
-                    }, {
-                        value: 'BONUS',
-                        text: '红利'
-                    }
-                ],
-                timeOrder: [
-                    {
-                        value: 'DESC',
-                        text: '倒序'
-                    }, {
-                        value: 'ASC',
-                        text: '正序'
-                    }
-                ],
+                payTypes: SHARE_PAY_TYPES,
+                timeOrder: ORDER,
                 rules: {},
                 dialog: false,
                 headers: [
@@ -222,6 +243,7 @@
                     {text: '交易金额/元', value: 'payAmount'},
                     {text: '交易类型', value: 'payType'},
                     {text: '交易时间', value: 'payTime'},
+                    {text: '操作', value: 'operations'},
                 ],
                 records: [],
                 editedIndex: -1,
@@ -234,7 +256,8 @@
                     payCount: null,
                     payAmount: null,
                     payType: '',
-                    unitPrice: ''
+                    unitPrice: '',
+                    fee: null
                 },
                 defaultItem: {
                     id: null,
@@ -245,19 +268,19 @@
                     payCount: null,
                     payAmount: null,
                     payType: '',
-                    unitPrice: ''
+                    unitPrice: '',
+                    fee: null
                 },
             }
         },
         methods: {
             getPayType(payType) {
-                if (payType === 'SELL') {
-                    return '买入'
-                } else if (payType === 'BUY') {
-                    return '卖出'
-                } else if (payType === 'BONUS') {
-                    return '红利'
+                for (let i in SHARE_PAY_TYPES) {
+                    if (SHARE_PAY_TYPES[i].value === payType) {
+                        return SHARE_PAY_TYPES[i].text;
+                    }
                 }
+                return "";
             },
             handleSubmit() {
                 this.query();
@@ -294,23 +317,69 @@
                 this.editedItem = Object.assign({}, item)
                 this.dialog = true
             },
-
-            deleteItem(item) {
-                // let self = this;
-                const index = this.records.indexOf(item)
-                if (confirm('你确定想要删除此项记录吗?')) {
-                    this.records.splice(index, 1);
-                    // recordDelete({id: item.id}, (json) => {
-                    //     self.$toast.success(json.message);
-                    // }, ((json) => {
-                    //     self.$toast.error(json.message);
-                    // }))
+            validateParams() {
+                if (!this.editedItem.payType || this.editedItem.payType === "") {
+                    this.$message.error("操作类型不能为空");
+                    return false;
                 }
-
+                if (!this.editedItem.payTime || this.editedItem.payTime === "") {
+                    this.$message.error("交易时间不能为空");
+                    return false;
+                }
+                let zz = /^([1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9])\s(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/;
+                if (!this.editedItem.payTime.match(zz)) {
+                    this.$message.error("交易时间格式应该为yyyy-MM-dd HH:mm:ss");
+                    return false;
+                }
+                if (!this.editedItem.shareCode || this.editedItem.shareCode === "") {
+                    this.$message.error("股票代码不能为空");
+                    return false;
+                }
+                if (!this.editedItem.shareCode || this.editedItem.shareCode === "") {
+                    this.$message.error("股票代码不能为空");
+                    return false;
+                }
+                if (!this.editedItem.shareName || this.editedItem.shareName === "") {
+                    this.$message.error("股票名称不能为空");
+                    return false;
+                }
+                if (!this.editedItem.payAmount || this.editedItem.payAmount <= 0) {
+                    this.$message.error("交易金额不能小于等于0");
+                    return false;
+                }
+                if (!this.editedItem.payCount || this.editedItem.payCount <= 0) {
+                    this.$message.error("交易数量不能小于等于0");
+                    return false;
+                }
+                if (!this.editedItem.unitPrice || this.editedItem.unitPrice <= 0) {
+                    this.$message.error("交易价格不能小于等于0");
+                    return false;
+                }
+                if (!this.editedItem.fee || this.editedItem.fee <= 0) {
+                    this.$message.error("手续费不能小于等于0");
+                    return false;
+                }
+                return true;
+            },
+            deleteItem(item) {
+                let self = this;
+                const index = this.records.indexOf(item);
+                this.$confirm('你确定想要删除此项记录吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    self.records.splice(index, 1);
+                    recordDelete(item, (json) => {
+                        self.$message.success({message: json.message, center: true});
+                    })
+                }).catch(() => {
+                    self.$message.info({message: '您取消了删除', center: true})
+                });
             },
 
             close() {
-                this.dialog = false
+                this.dialog = false;
                 setTimeout(() => {
                     this.editedItem = Object.assign({}, this.defaultItem);
                     this.editedIndex = -1;
@@ -322,21 +391,18 @@
                 if (this.editedIndex > -1) {
                     recordUpdate(self.editedItem, (json) => {
                         Object.assign(self.records[self.editedIndex], self.editedItem);
-                        self.$toast.success(json.message);
-                    }, (json) => {
-                        self.$toast.error(json.message);
+                        self.$message.success({message: json.message, center: true});
                     });
-
+                    this.close()
                 } else {
-                    recordSave(self.editedItem, (json) => {
-                        self.records.push(self.editedItem);
-                        self.$toast.success(json.message);
-                    }, (json) => {
-                        self.$toast.error(json.message);
-                    });
+                    if (this.validateParams()) {
+                        recordSave(self.editedItem, (json) => {
+                            self.$message.success({message: json.message, center: true});
+                        });
+                        this.close()
+                    }
 
                 }
-                this.close()
             }
         },
         computed: {

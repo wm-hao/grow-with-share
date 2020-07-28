@@ -44,10 +44,22 @@ export function post(url, params, success, fail, err) {
             if (response.data.code === HTTP_RESPONSE_SUCCESS_CODE) {
                 if (success) {
                     success(response.data);
+                } else {
+                    Message({
+                        message: response.data.message,
+                        type: 'success',
+                        center: true
+                    })
                 }
             } else {
                 if (fail) {
                     fail(response.data);
+                } else {
+                    Message({
+                        message: response.data.message,
+                        type: 'error',
+                        center: true
+                    })
                 }
             }
         }

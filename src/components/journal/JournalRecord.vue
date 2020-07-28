@@ -122,30 +122,7 @@
                     title: 'Trevor Hansen',
                     subtitle: 'Have any ideas about what we should get Heidi for her birthday?',
                 },
-                {
-                    action: '18hr',
-                    headline: 'Recipe to try',
-                    title: 'Britta Holt',
-                    subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-                },
-                {
-                    action: '18hr',
-                    headline: 'Recipe to try',
-                    title: 'Britta Holt',
-                    subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-                },
-                {
-                    action: '18hr',
-                    headline: 'Recipe to try',
-                    title: 'Britta Holt',
-                    subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-                },
-                {
-                    action: '18hr',
-                    headline: 'Recipe to try',
-                    title: 'Britta Holt',
-                    subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-                },
+
             ],
             dialog: false
         }),

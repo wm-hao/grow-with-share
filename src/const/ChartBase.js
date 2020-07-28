@@ -22,7 +22,7 @@ const BaseChartSettings = function (options) {
                     show: true,
                     position: "top"
                 },
-                barWidth: 14,
+                barWidth: options.barWidth || 14,
                 lineStyle: {
                     color: {
                         type: 'linear',

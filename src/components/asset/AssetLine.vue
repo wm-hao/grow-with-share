@@ -1,16 +1,24 @@
 <template>
     <v-card raised="">
-        <ve-line :data="chartData" :settings="chartSettings" :height="chartHeight" :extend="extend"></ve-line>
+        <ve-line :data="chartData" :settings="chartSettings" :height="chartHeight" :extend="extend"
+                 :dataZoom="dataZoom"></ve-line>
     </v-card>
 </template>
 
 <script>
     import ChartConfig from "../../const/ChartConst";
+    import {balanceQry} from "../../api/balance/balanceRequest";
 
     export default {
         name: "AssetLine",
         data: () => {
             return {
+                dataZoom: {
+                    type: 'slider',
+                    start: 18,
+                    end: 88,
+                    height: 14,
+                },
                 dataEmpty: false,
                 chartHeight: ChartConfig.baseHeight,
                 extend: {
@@ -27,57 +35,43 @@
                     }
                 },
                 chartData: {
-                    columns: ['Date', 'Share', 'Fund', 'Cash', 'Total'],
-                    rows: [
-                        {
-                            'Date': '2020-07-06',
-                            'Share': 20163,
-                            'Fund': 490,
-                            'Cash': 7956.92,
-                            'Total': 28466.92
-                        },
-                        {
-                            'Date': '2020-07-07',
-                            'Share': 19529.6,
-                            'Fund': 500.6,
-                            'Cash': 9445.58,
-                            'Total': 29475.18
-                        },
-                        {
-                            'Date': '2020-07-08',
-                            'Share': 19988,
-                            'Fund': 904.8,
-                            'Cash': 9043.12,
-                            'Total': 29935.92
-                        },
-                        {
-                            'Date': '2020-07-09',
-                            'Share': 25615,
-                            'Fund': 923,
-                            'Cash': 3576,
-                            'Total': 30114.9
-                        },
-                        {
-                            'Date': '2020-07-10',
-                            'Share': 25515,
-                            'Fund': 917,
-                            'Cash': 3568.12,
-                            'Total': 30000.52
-                        },
-                    ]
+                    columns: ['date', 'shareAmount', 'fundAmount', 'cashAmount', 'total'],
+                    rows: []
                 },
                 chartSettings: {
-                    metrics: ['Share', 'Fund', 'Cash', 'Total'],
-                    dimension: ['Date'],
+                    metrics: ['shareAmount', 'fundAmount', 'cashAmount', 'total'],
+                    axisSite: {right: ['total', 'shareAmount']},
+                    yAxisType: ['normal', 'KMB'],
+                    dimension: ['date'],
                     labelMap: {
-                        Date: '日期',
-                        Share: '股票',
-                        Fund: '基金',
-                        Cash: '现金',
-                        Total: '总计'
+                        date: '日期',
+                        shareAmount: '股票',
+                        fundAmount: '基金',
+                        cashAmount: '现金',
+                        total: '总计'
                     },
                 }
             }
+        },
+        methods: {
+            fetchData: function () {
+                let self = this;
+                let qryParams = {
+                    "page": 0,
+                    "size": 20000,
+                    "timeOrder": "ASC",
+                    "reverse": "N"
+                };
+                balanceQry(qryParams, (json) => {
+                    if (json.total > 0) {
+                        self.chartData.rows = json.rows;
+                        self.dataEmpty = false;
+                    }
+                })
+            }
+        },
+        created() {
+            this.fetchData();
         }
     }
 </script>

@@ -2,7 +2,9 @@
     <v-card flat="">
         <ve-histogram :data="chartDataSettings.chartData" :settings="chartDataSettings.chartSettings"
                       :extend="chartDataSettings.extend"
-                      :height="chartDataSettings.chartHeight" :data-empty="chartDataSettings.dataEmpty"></ve-histogram>
+                      :height="chartDataSettings.chartHeight" :data-empty="chartDataSettings.dataEmpty"
+                      :data-zoom="chartDataSettings.dataZoom" :loading="chartDataSettings.loading"
+        ></ve-histogram>
     </v-card>
 </template>
 

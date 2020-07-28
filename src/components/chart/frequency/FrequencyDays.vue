@@ -16,7 +16,8 @@
             let options = {
                 title: '日交易频率',
                 dataZoom: {
-                }
+                },
+                barWidth: 7
             };
             const baseChartSettings = BaseChartSettings(options);
             return {
@@ -27,18 +28,15 @@
                     chartSettings: {
                         metrics: ['Frequency'],
                         dimension: ['Date'],
-                        // axisSite: {right: ['Percent']},
                         yAxisType: ['normal'],
                         dataType: {
                             'Frequency': 'normal',
                         },
-                        // yAxisName: ['金额/元', '比率/%'],
                         labelMap: {
                             Date: '日期',
                             Frequency: '次数',
                         },
                         area: true,
-                        // showLine: ['Percent']
                     },
                     chartData: {
                         columns: ['Date', 'Frequency'],
@@ -554,7 +552,7 @@
                     }
                 ];
                 self.chartDataSettings.dataEmpty = false;
-            }, 2000);
+            }, 10);
 
         }
     }

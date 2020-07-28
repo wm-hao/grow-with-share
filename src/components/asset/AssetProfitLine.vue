@@ -1,17 +1,25 @@
 <template>
     <v-card raised="">
-        <ve-line :data="chartData" :settings="chartSettings" :height="chartHeight" :extend="extend"></ve-line>
+        <ve-line :data="chartData" :settings="chartSettings" :height="chartHeight" :extend="extend"
+                 :dataZoom="dataZoom"></ve-line>
     </v-card>
 </template>
 
 <script>
     import ChartConfig from "../../const/ChartConst";
+    import {balanceQry} from "../../api/balance/balanceRequest";
 
     export default {
         name: "AssetProfitLine",
         data: () => {
             return {
-                dataEmpty: false,
+                dataZoom: {
+                    type: 'slider',
+                    start: 0,
+                    end: 100,
+                    height: 14,
+                },
+                dataEmpty: true,
                 chartHeight: ChartConfig.baseHeight,
                 extend: {
                     legend: {
@@ -25,59 +33,39 @@
                     }
                 },
                 chartData: {
-                    columns: ['Date', 'Profit'],
-                    rows: [
-                        {
-                            'Date': '2020-07-06',
-                            'Profit': 143
-                        },
-                        {
-                            'Date': '2020-07-07',
-                            'Profit': 871.6
-                        },
-                        {
-                            'Date': '2020-07-08',
-                            'Profit': 456
-                        },
-                        {
-                            'Date': '2020-07-09',
-                            'Profit': 189.1
-                        },
-                        {
-                            'Date': '2020-07-10',
-                            'Profit': -106.5
-                        },
-                        {
-                            'Date': '2020-07-13',
-                            'Profit': 198
-                        },
-                        {
-                            'Date': '2020-07-14',
-                            'Profit': 520
-                        },
-                        {
-                            'Date': '2020-07-15',
-                            'Profit': 390
-                        },
-                        {
-                            'Date': '2020-07-16',
-                            'Profit': 923
-                        },
-                        {
-                            'Date': '2020-07-17',
-                            'Profit': 823
-                        },
-                    ]
+                    columns: ['date', 'profit'],
+                    rows: []
                 },
                 chartSettings: {
-                    metrics: ['Profit'],
-                    dimension: ['Date'],
+                    metrics: ['profit'],
+                    dimension: ['date'],
                     labelMap: {
-                        Date: '日期',
-                        Profit: '利润'
+                        date: '日期',
+                        profit: '利润'
                     },
+                    area: true
                 }
             }
+        },
+        methods: {
+            fetchData: function () {
+                let self = this;
+                let qryParams = {
+                    "page": 0,
+                    "size": 1000,
+                    "timeOrder": "ASC",
+                    "reverse": "N"
+                };
+                balanceQry(qryParams, (json) => {
+                    if (json.total > 0) {
+                        self.chartData.rows = json.rows;
+                        self.dataEmpty = false;
+                    }
+                })
+            }
+        },
+        created() {
+            this.fetchData();
         }
     }
 </script>

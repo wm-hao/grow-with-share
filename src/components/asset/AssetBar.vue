@@ -8,6 +8,8 @@
     import BaseHistogramChart from "../chart/BaseHistogramChart";
     import ChartConfig from "../../const/ChartConst";
     import BaseChartSettings from "../../const/ChartBase";
+    import {balanceQry} from "../../api/balance/balanceRequest";
+    import {USER_ID} from "../../const/Constant";
 
     export default {
         name: "AssetBar",
@@ -19,62 +21,57 @@
             });
             return {
                 chartDataSettings: {
-                    dataEmpty: false,
+                    dataZoom: {
+                        start: 20,
+                        end: 50,
+                        type: 'slider',
+                        height: 14,
+                    },
+                    dataEmpty: true,
+                    loading: true,
                     chartHeight: ChartConfig.baseHeight,
                     extend: base.extend,
                     chartData: {
-                        columns: ['Date', 'Share', 'Fund', 'Cash', 'Total'],
-                        rows: [
-                            {
-                                'Date': '2020-07-06',
-                                'Share': 20163,
-                                'Fund': 490,
-                                'Cash': 7956.92,
-                                'Total': 28466.92
-                            },
-                            {
-                                'Date': '2020-07-07',
-                                'Share': 19529.6,
-                                'Fund': 500.6,
-                                'Cash': 9445.58,
-                                'Total': 29475.18
-                            },
-                            {
-                                'Date': '2020-07-08',
-                                'Share': 19988,
-                                'Fund': 904.8,
-                                'Cash': 9043.12,
-                                'Total': 29935.92
-                            },
-                            {
-                                'Date': '2020-07-09',
-                                'Share': 25615,
-                                'Fund': 923,
-                                'Cash': 3576,
-                                'Total': 30114.9
-                            },
-                            {
-                                'Date': '2020-07-10',
-                                'Share': 25515,
-                                'Fund': 917,
-                                'Cash': 3568.12,
-                                'Total': 30000.52
-                            },
-                        ]
+                        columns: ['date', 'shareAmount', 'fundAmount', 'cashAmount', 'total'],
+                        rows: []
                     },
                     chartSettings: {
-                        metrics: ['Share', 'Fund', 'Cash', 'Total'],
-                        dimension: ['Date'],
+                        metrics: ['shareAmount', 'fundAmount', 'cashAmount', 'total'],
+                        dimension: ['date'],
                         labelMap: {
-                            Date: '日期',
-                            Share: '股票',
-                            Fund: '基金',
-                            Cash: '现金',
-                            Total: '总计'
+                            date: '日期',
+                            shareAmount: '股票',
+                            fundAmount: '基金',
+                            cashAmount: '现金',
+                            total: '总计'
                         },
                     }
                 }
             }
+        },
+        methods: {
+            fetchData: function () {
+                let self = this;
+                let qryParams = {
+                    "page": 0,
+                    "size": 1000,
+                    "timeOrder": "ASC",
+                    "reverse": "N"
+                };
+                balanceQry(qryParams, (json) => {
+                    if (json.total > 0) {
+                        self.chartDataSettings.chartData.rows = json.rows;
+                        self.chartDataSettings.dataEmpty = false;
+                        self.chartDataSettings.loading = false;
+                        self.chartDataSettings.dataZoom.start = (1 - (4 / json.total)) * 100;
+                        self.chartDataSettings.dataZoom.end = 100;
+                    }
+                })
+            }
+        },
+        created() {
+            sessionStorage.setItem(USER_ID, "1");
+            this.fetchData();
         }
     }
 </script>
