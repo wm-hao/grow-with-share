@@ -21,11 +21,27 @@
         props: ['name'],
         name: "totalYearMonth",
         data: () => {
-            let year = BaseChartSettings({title: '年交易频率', axisLabel: 0});
-            let month = BaseChartSettings({title: '月交易频率'});
+            let year = BaseChartSettings({title: '年交易频率', axisLabel: 0, barWidth: 8});
+            let month = BaseChartSettings({title: '月交易频率', barWidth: 8});
             return {
                 chartDataSettings: {
                     month: {
+                        markLine: {
+                            data: [
+                                {
+                                    type: 'average',
+                                    name: '平均数',
+                                    label: {
+                                        show: true,
+                                        normal: {
+                                            position: 'middle',
+                                            formatter: '{b}: {c}'
+                                        }
+                                    }
+                                }
+                            ]
+
+                        },
                         dataZoom: {
                             type: 'slider',
                             start: 20,
@@ -53,6 +69,22 @@
                         }
                     },
                     year: {
+                        markLine: {
+                            data: [
+                                {
+                                    type: 'average',
+                                    name: '平均数',
+                                    label: {
+                                        show: true,
+                                        normal: {
+                                            position: 'middle',
+                                            formatter: '{b}: {c}'
+                                        }
+                                    }
+                                }
+                            ]
+
+                        },
                         dataEmpty: true,
                         chartHeight: ChartConfig.baseHeight,
                         extend: year.extend,

@@ -1,7 +1,7 @@
 <template>
     <v-card raised="">
         <ve-pie :data="chartData" :height="baseHeight" width="100%" :settings="charSettings"
-                :extend="extend" :data-empty="dataEmpty"></ve-pie>
+                :extend="extend" :data-empty="dataEmpty" :loading="loading"></ve-pie>
     </v-card>
 
 </template>
@@ -15,6 +15,7 @@
         name: "AssetPie",
         data: () => ({
             dataEmpty: true,
+            loading: true,
             baseHeight: ChartConfig.baseHeight,
             extend: {
                 legend: {
@@ -53,6 +54,7 @@
                         ];
                         self.chartData.rows = rows;
                         self.dataEmpty = false;
+                        self.loading = false;
                     }
                 }, (json) => {
                     self.$message.error(json.message);

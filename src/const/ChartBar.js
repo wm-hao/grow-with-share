@@ -1,10 +1,16 @@
 import ChartConfig from './ChartConst';
 
-const BaseChartSettings = function (options) {
+const BaseBarChartSettings = function (options) {
+
     const baseChartSettings = {
         extend: {
             legend: {
                 top: ChartConfig.legendTop
+            },
+            xAxis: {
+                axisLabel: {
+                    interval: options.axisLabel === 0 ? 0 : options.axisLabel || 2
+                }
             },
             title: {
                 text: options.title || '',
@@ -12,17 +18,12 @@ const BaseChartSettings = function (options) {
                 left: ChartConfig.titleLeft,
                 top: ChartConfig.titleTop
             },
-            xAxis: {
-                axisLabel: {
-                    interval: options.axisLabel === 0 ? 0 : options.axisLabel || 2
-                }
-            },
             series: {
                 label: {
                     show: true,
                     position: "top"
                 },
-                barWidth: options.barWidth || 14,
+                barWidth: options.barWidth || 8,
                 lineStyle: {
                     barBorderRadius: 5,
                     color: {
@@ -56,7 +57,22 @@ const BaseChartSettings = function (options) {
                 }
             ]
         }
+        if(options.reverse) {
+            baseChartSettings.extend.xAxis.inverse = true;
+        }
         if (!options.itemStyleOrigin) {
+            let colorStops = [{
+                offset: 0, color: 'red' // 0% 处的颜色
+            }, {
+                offset: 1, color: 'pink' // 100% 处的颜色
+            }];
+            if (options.reverse) {
+                colorStops = [{
+                    offset: 0, color: 'teal' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'green' // 100% 处的颜色
+                }];
+            }
             baseChartSettings.extend.series.itemStyle = {
                 barBorderRadius: 5,
                 color: {
@@ -65,11 +81,7 @@ const BaseChartSettings = function (options) {
                     y: 0,
                     x2: 0,
                     y2: 1,
-                    colorStops: [{
-                        offset: 0, color: '#F06292' // 0% 处的颜色
-                    }, {
-                        offset: 1, color: '#81D4FA' // 100% 处的颜色
-                    }],
+                    colorStops: colorStops
                 },
                 label: {
                     show: true,
@@ -86,4 +98,4 @@ const BaseChartSettings = function (options) {
     return baseChartSettings;
 };
 
-export default BaseChartSettings;
+export default BaseBarChartSettings;

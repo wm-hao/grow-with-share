@@ -24,6 +24,7 @@
             const baseChartSettings = BaseChartSettings(options);
             return {
                 chartDataSettings: {
+                    loading: true,
                     dataEmpty: true,
                     chartHeight: ChartConfig.baseHeight,
                     extend: baseChartSettings.extend,
@@ -63,6 +64,7 @@
                     self.chartDataSettings.chartData.rows = json.rows;
                     if (json.rows.length > 0) {
                         self.chartDataSettings.dataEmpty = false;
+                        self.chartDataSettings.loading = false;
                     }
                 }, (json) => {
                     self.$message.error(json.message);

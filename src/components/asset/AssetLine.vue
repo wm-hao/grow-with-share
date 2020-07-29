@@ -1,7 +1,7 @@
 <template>
     <v-card raised="">
         <ve-line :data="chartData" :settings="chartSettings" :height="chartHeight" :extend="extend"
-                 :dataZoom="dataZoom"></ve-line>
+                 :dataZoom="dataZoom" :loading="loading"></ve-line>
     </v-card>
 </template>
 
@@ -20,6 +20,7 @@
                     height: 14,
                 },
                 dataEmpty: false,
+                loading: true,
                 chartHeight: ChartConfig.baseHeight,
                 extend: {
                     legend: {
@@ -66,6 +67,7 @@
                     if (json.total > 0) {
                         self.chartData.rows = json.rows;
                         self.dataEmpty = false;
+                        self.loading = false;
                     }
                 })
             }

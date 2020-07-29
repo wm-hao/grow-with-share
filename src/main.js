@@ -9,7 +9,6 @@ import 'v-charts/lib/style.css'
 import http from "./api/http";
 import VueCookies from 'vue-cookies'
 import './project.css'
-
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.use(VueCookies);

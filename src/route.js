@@ -80,7 +80,7 @@ const routes = [
             {
                 path: RouterPathConst.pathDashBoardChartTop,
                 name: RouterPathConst.pathDashBoardChartTop,
-                component: TradeChartTop,
+                component: TradeChartTop
             },
             {
                 path: RouterPathConst.pathDashBoardChartProfit,

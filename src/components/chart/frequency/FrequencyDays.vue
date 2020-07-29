@@ -21,6 +21,22 @@
             const baseChartSettings = BaseChartSettings(options);
             return {
                 chartDataSettings: {
+                    markLine: {
+                        data: [
+                            {
+                                type: 'average',
+                                name: '平均数',
+                                label: {
+                                    show: true,
+                                    normal: {
+                                        position: 'middle',
+                                        formatter: '{b}: {c}'
+                                    }
+                                }
+                            }
+                        ]
+
+                    },
                     dataZoom: {
                         type: 'slider',
                         height: 15,

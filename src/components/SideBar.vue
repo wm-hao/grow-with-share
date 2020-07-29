@@ -93,13 +93,13 @@
                                 id: '6-1',
                                 name: '交易频率',
                                 icon: 'mdi-chart-bell-curve-cumulative',
-                                to: '/dashboard/chart/frequency/days',
+                                to: RouterPathConst.pathDashBoardChartFrequencyDays
                             },
                             {
                                 id: '6-2',
                                 name: '榜单数据',
                                 icon: 'mdi-chart-gantt',
-                                to: '/dashboard/chart/top',
+                                to: RouterPathConst.pathDashBoardChartTop,
                             },
                             {
                                 id: '6-3',
