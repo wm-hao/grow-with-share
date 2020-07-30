@@ -8,6 +8,7 @@
     import BaseBarChart from "../BaseBarChart";
     import ChartConfig from "../../../const/ChartConst";
     import BaseBarChartSettings from "../../../const/ChartBar";
+    import {profitQryTop} from "../../../api/profit/profitRequest";
 
     export default {
         name: "TopLoss",
@@ -42,32 +43,36 @@
                     chartHeight: ChartConfig.baseHeight,
                     extend: baseChartSettings.extend,
                     chartSettings: {
-                        metrics: ['profit'],
+                        metrics: ['amount'],
                         dimension: ['shareName'],
                         yAxisType: ['normal'],
                         dataType: {
-                            'profit': 'normal',
+                            'amount': 'normal',
                         },
                         labelMap: {
                             shareName: '股票名称',
-                            profit: '亏损/元',
+                            amount: '亏损/元',
                         },
                     },
                     chartData: {
-                        columns: ['shareName', 'profit'],
-                        rows: [
-                            {
-                                "shareName": '科达利',
-                                "profit": -10000
-                            },
-                            {
-                                "shareName": '天味食品',
-                                "profit": -5000
-                            }
-                        ]
+                        columns: ['shareName', 'amount'],
+                        rows: []
                     }
                 }
             }
+        },
+        created() {
+            let self = this;
+            let params = {
+                page: 0,
+                size: 10,
+                type: 'loss'
+            };
+            profitQryTop(params, (json) => {
+                self.chartDataSettings.dataEmpty = false;
+                self.chartDataSettings.loading = false;
+                self.chartDataSettings.chartData.rows = json.rows.reverse();
+            });
         }
     }
 </script>

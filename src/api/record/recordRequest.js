@@ -42,3 +42,10 @@ export function recordFrequencyQry(params, success, fail, err) {
     }
     return get("trade/frequency", params, success, fail, err);
 }
+
+export function recordTopQry(params, success, fail, err) {
+    if (params) {
+        params.userId = sessionStorage.getItem(USER_ID);
+    }
+    return get("trade/top", params, success, fail, err);
+}
