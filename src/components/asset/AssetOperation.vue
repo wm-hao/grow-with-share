@@ -27,6 +27,7 @@
 
 <script>
     import {balanceToadyQry, balanceToadyUpdate} from "../../api/balance/balanceRequest";
+    import RouterPathConst from "../../const/RouterConst";
 
     export default {
         name: "AssetOperation",
@@ -49,6 +50,10 @@
                         center: true,
                         message: json.message
                     });
+                    self.$router.push({
+                        path: RouterPathConst.pathBlank,
+                        query: {destUrl: self.$route.path}
+                    })
                 });
             }
         },

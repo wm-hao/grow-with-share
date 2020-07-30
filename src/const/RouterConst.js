@@ -13,7 +13,8 @@ const RouterPathConst = {
     pathDashBoardChartKeep: "/dashboard/chart/keep",
     pathDashBoardChartProfit: "/dashboard/chart/profit",
     pathDashBoardAsset: "/dashboard/asset",
-    pathDashBoardJournal: "/dashboard/journal"
+    pathDashBoardJournal: "/dashboard/journal",
+    pathBlank: '/blank'
 };
 
 export default RouterPathConst;

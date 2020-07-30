@@ -43,9 +43,9 @@
                     let success = json.rows.length === 3;
                     if (success) {
                         let rows = [
-                            {'Category': '盈利', 'Value': json.rows[2].total},
-                            {'Category': '平衡', 'Value': json.rows[1].total},
                             {'Category': '亏损', 'Value': json.rows[0].total},
+                            {'Category': '平衡', 'Value': json.rows[1].total},
+                            {'Category': '盈利', 'Value': json.rows[2].total},
                         ];
                         self.chartData.rows = rows;
                         self.dataEmpty = false;

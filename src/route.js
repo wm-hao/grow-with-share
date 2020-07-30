@@ -15,10 +15,15 @@ import FrequencyDays from "./components/chart/frequency/FrequencyDays";
 import RouterPathConst from "./const/RouterConst";
 import AccountBalance from "./components/asset/AccountBalance";
 import JournalPanel from "./components/journal/JournalPanel";
+import Blank from "./components/util/Blank";
 
 Vue.use(VueRouter);
 
 const routes = [
+    {
+        path: RouterPathConst.pathBlank,
+        component: Blank
+    },
     {
         path: RouterPathConst.pathBase,
         redirect: RouterPathConst.pathDashBoardIndex
