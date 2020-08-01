@@ -90,6 +90,12 @@ export function get(url, params, success, fail, err) {
             } else {
                 if (fail) {
                     fail(response.data);
+                } else {
+                    Message({
+                        message: response.data.message,
+                        type: 'error',
+                        center: true
+                    })
                 }
             }
         }

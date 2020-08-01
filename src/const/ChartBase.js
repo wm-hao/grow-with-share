@@ -39,7 +39,9 @@ const BaseChartSettings = function (options) {
                         global: false
                     }
                 },
-
+                itemStyle : {
+                    barBorderRadius: 5
+                }
             },
         },
     };

@@ -19,6 +19,8 @@
 
 <script>
 
+    import RouterPathConst from "../../const/RouterConst";
+
     export default {
         name: "TradeChartFrequency",
         components: {},
@@ -27,12 +29,12 @@
                 {
                     icon: 'mdi-chart-arc',
                     name: '日交易',
-                    to: '/dashboard/chart/frequency/days'
+                    to: RouterPathConst.pathDashBoardChartFrequencyDays
                 },
                 {
                     icon: 'mdi-chart-arc',
                     name: '年月交易',
-                    to: '/dashboard/chart/frequency/yearmonth'
+                    to: RouterPathConst.pathDashBoardChartFrequencyYearMonth
                 }
             ]
         })

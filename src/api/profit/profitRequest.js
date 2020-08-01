@@ -16,3 +16,18 @@ export function profitQryCompare(params, success, fail, err) {
     return get("profit/compare", params, success, fail, err);
 }
 
+export function profitQryTotal(params, success, fail, err) {
+    if (params) {
+        params.userId = sessionStorage.getItem(USER_ID);
+    }
+    return get("profit/total", params, success, fail, err);
+}
+
+export function profitQry(params, success, fail, err) {
+    if (params) {
+        params.userId = sessionStorage.getItem(USER_ID);
+    }
+    return get("profit/pagination", params, success, fail, err);
+}
+
+

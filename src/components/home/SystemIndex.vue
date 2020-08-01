@@ -3,7 +3,7 @@
         <v-row class="ma-2">
             <v-col lg="7" sm="12">
 
-                    <Recent10DaysAnalysis/>
+                <Recent10DaysAnalysis/>
             </v-col>
             <v-col lg="5" sm="12">
                 <AssetPie/>
@@ -21,24 +21,27 @@
     import Recent10DaysAnalysis from "./Recent10DaysAnalysis";
     import RecentTradeRecords from "./RecentTradeRecords";
     import AssetPie from "../asset/AssetPie";
+    import {profitQryTotal} from "../../api/profit/profitRequest";
+    import {USER_ID} from "../../const/Constant";
 
     export default {
         components: {AssetPie, RecentTradeRecords, Recent10DaysAnalysis},
-        data: () => ({})
+        data: () => ({}),
+        created() {
+            sessionStorage.setItem(USER_ID, "1");
+            let self = this;
+            profitQryTotal({}, (json) => {
+                self.$notify({
+                    title: '提示',
+                    message: '截止当前，您共盈利' + parseInt((json.rows[0].amount || 0) - 2000) + '元',
+                    duration: 0,
+                });
+            })
+
+        }
     }
 </script>
 
 <style scoped>
-    .card_height_first_row {
-        /*height: 350px;*/
-    }
 
-    .MuiTypography-colorPrimary {
-        /*color: #1976d2;*/
-        font-size: 1.25rem;
-        font-family: "Roboto", Helvetica, Arial, sans-serif;
-        font-weight: 600;
-        line-height: 1.6;
-        letter-spacing: .0075em;
-    }
 </style>

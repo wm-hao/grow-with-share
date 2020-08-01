@@ -16,6 +16,8 @@ import RouterPathConst from "./const/RouterConst";
 import AccountBalance from "./components/asset/AccountBalance";
 import JournalPanel from "./components/journal/JournalPanel";
 import Blank from "./components/util/Blank";
+import ProfitQry from "./components/chart/profit/ProfitQry";
+import ProfitView from "./components/chart/profit/ProfitView";
 
 Vue.use(VueRouter);
 
@@ -91,6 +93,18 @@ const routes = [
                 path: RouterPathConst.pathDashBoardChartProfit,
                 name: RouterPathConst.pathDashBoardChartProfit,
                 component: TradeChartProfit,
+                children: [
+                    {
+                        path: RouterPathConst.pathDashBoardChartProfitQry,
+                        name: RouterPathConst.pathDashBoardChartProfitQry,
+                        component: ProfitQry,
+                    },
+                    {
+                        path: RouterPathConst.pathDashBoardChartProfitView,
+                        name: RouterPathConst.pathDashBoardChartProfitView,
+                        component: ProfitView,
+                    },
+                ]
             },
             {
                 path: RouterPathConst.pathDashBoardChartKeep,

@@ -105,13 +105,7 @@
                                 id: '6-3',
                                 name: '盈利分析',
                                 icon: 'mdi-chart-line',
-                                to: '/dashboard/chart/top',
-                            },
-                            {
-                                id: '6-4',
-                                name: '持股时长',
-                                icon: 'mdi-chart-timeline',
-                                to: '/dashboard/chart/top',
+                                to: RouterPathConst.pathDashBoardChartProfitQry
                             },
                         ]
                     },
