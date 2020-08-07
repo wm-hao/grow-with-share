@@ -9,7 +9,6 @@
     import ChartConfig from "../../const/ChartConst";
     import BaseChartSettings from "../../const/ChartBase";
     import {balanceQry} from "../../api/balance/balanceRequest";
-    import {USER_ID} from "../../const/Constant";
 
     export default {
         name: "AssetBar",
@@ -70,7 +69,6 @@
             }
         },
         created() {
-            sessionStorage.setItem(USER_ID, "1");
             this.fetchData();
         }
     }

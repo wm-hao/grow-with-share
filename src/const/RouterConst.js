@@ -1,5 +1,6 @@
 const RouterPathConst = {
     pathBase: "/",
+    pathLogin: "/user/login",
     pathDashBoard: "/dashboard",
     pathDashBoardIndex: "/dashboard/index",
     pathDashBoardTradeQuery: "/dashboard/trade/query",

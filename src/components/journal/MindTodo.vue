@@ -40,6 +40,7 @@
 <script>
     import {dateFormat} from "../../const/MyUtils";
     import {journalAdd} from "../../api/journal/journalRequest";
+    import RouterPathConst from "../../const/RouterConst";
 
     export default {
         name: "MindTodo",
@@ -62,6 +63,10 @@
                         center: true
                     });
                     self.reset();
+                    self.$router.push({
+                        path: RouterPathConst.pathBlank,
+                        query: {destUrl: self.$route.path}
+                    })
                 });
             },
             reset() {

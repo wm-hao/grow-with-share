@@ -36,6 +36,8 @@
     import Copyright from "./Copyright";
     import SideBar from "./SideBar";
     import RouterPathConst from "../const/RouterConst";
+    import {userLogout} from "../api/user/userRequest";
+    import {profitQryTotal} from "../api/profit/profitRequest";
 
     export default {
         name: "DashBoard",
@@ -45,15 +47,22 @@
         }),
         methods: {
             handleLogout: function () {
+                let self = this;
                 this.$confirm('您将要退出本系统?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '您已成功退出!'
+                    userLogout({}, (json) => {
+                        sessionStorage.clear();
+                        self.$message({
+                            type: 'success',
+                            message: json.message || '您已成功退出!',
+                            center: true
+                        });
+                        self.$router.push(RouterPathConst.pathLogin);
                     });
+
                 }).catch(() => {
 
                 });
@@ -64,6 +73,40 @@
                     this.$router.push(RouterPathConst.pathDashBoardIndex);
                 }
             }
+        },
+        created() {
+            let self = this;
+            this.$confirm('幻想让你遍体鳞伤?', '', {
+                confirmButtonText: '你只能接受',
+                cancelButtonText: '拒绝',
+                type: 'error',
+                showCancelButton: false,
+                closeOnClickModal: false,
+                closeOnHashChange: false,
+                closeOnPressEscape: false,
+                distinguishCancelAndClose: true,
+                showClose: false,
+                callback: (action) => {
+                    if (action === 'cancel') {
+                        self.$message.info({
+                            message: "真是个傻X",
+                            center: true
+                        });
+                    } else if (action === 'confirm') {
+                        profitQryTotal({}, (json) => {
+                            self.$notify({
+                                title: '提示',
+                                message: '截止当前，您共盈利' + parseInt((json.rows[0].amount || 0) - 2000) + '元',
+                                duration: 2000,
+                            });
+                        })
+                    }
+                }
+            }).then(() => {
+
+            }).catch(() => {
+
+            });
         }
     }
 </script>

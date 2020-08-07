@@ -18,10 +18,17 @@ import JournalPanel from "./components/journal/JournalPanel";
 import Blank from "./components/util/Blank";
 import ProfitQry from "./components/chart/profit/ProfitQry";
 import ProfitView from "./components/chart/profit/ProfitView";
+import UserLogin from "./components/user/UserLogin";
+import {USER_ID} from "./const/Constant";
 
 Vue.use(VueRouter);
 
 const routes = [
+    {
+        path: RouterPathConst.pathLogin,
+        name: RouterPathConst.pathLogin,
+        component: UserLogin,
+    },
     {
         path: RouterPathConst.pathBlank,
         component: Blank
@@ -125,7 +132,16 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    next();
+    if (to.path === RouterPathConst.pathLogin) {
+        next();
+    } else {
+        let userId = sessionStorage.getItem(USER_ID);
+        if (!userId || userId === 'null' || userId === '') {
+            next(RouterPathConst.pathLogin);
+        } else {
+            next();
+        }
+    }
 });
 
 

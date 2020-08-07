@@ -1,19 +1,20 @@
 <template>
     <v-card flat="">
         <v-expansion-panels accordion="" class="elevation-4">
-            <v-expansion-panel v-for="(item) in items" :key="item.id">
-                <v-expansion-panel-header class="pa-1">
+            <v-expansion-panel v-for="(item) in items" :key="item.id" :class="getColor(item)">
+                <v-expansion-panel-header class="pa-1 ">
                     <v-list-item-content class="pa-2">
                         <v-list-item-title v-text="item.title"
                                            class="text-body-1 font-weight-550 black--text"></v-list-item-title>
-                        <v-list-item-subtitle class="text&#45;&#45;black" v-text="item.tags"></v-list-item-subtitle>
+                        <v-list-item-subtitle class="text--black pt-1"
+                                              v-text="getSubTitle(item)"></v-list-item-subtitle>
                     </v-list-item-content>
                     <template v-slot:actions>
                         <v-icon class="mr-2">mdi-arrow-down</v-icon>
                     </template>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                    <v-card flat="">
+                    <v-card flat="" :class="getColor(item)">
                         <v-card-text class="">
                             {{item.content}}
                         </v-card-text>
@@ -141,6 +142,16 @@
                     self.items = json.rows;
                 })
             },
+            getSubTitle(journalRecord) {
+                if (journalRecord) {
+                    return journalRecord.tags + " " + journalRecord.subTitle;
+                }
+                return "";
+            },
+            getColor(item) {
+                const colors = ['teal lighten-4', 'lime lighten-3', 'green lighten-4', 'blue lighten-5', 'orange lighten-4'];
+                return colors[item.title.length % colors.length];
+            }
         },
         created() {
             this.fetchData();

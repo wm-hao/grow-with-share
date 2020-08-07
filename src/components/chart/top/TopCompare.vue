@@ -9,7 +9,6 @@
 <script>
 
 
-    import {USER_ID} from "../../../const/Constant";
     import ChartConfig from "../../../const/ChartConst";
     import {profitQryCompare} from "../../../api/profit/profitRequest";
 
@@ -57,7 +56,6 @@
             }
         },
         created() {
-            sessionStorage.setItem(USER_ID, "1");
             this.fetchData();
         }
     }

@@ -16,7 +16,7 @@
                 dataZoom: {
                     type: 'slider',
                     start: 18,
-                    end: 88,
+                    end: 100,
                     height: 14,
                 },
                 dataEmpty: false,

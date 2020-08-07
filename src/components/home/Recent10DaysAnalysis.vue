@@ -10,7 +10,6 @@
     import BaseChartSettings from "../../const/ChartBase";
     import BaseHistogramChart from "../chart/BaseHistogramChart";
     import {balanceQry} from "../../api/balance/balanceRequest";
-    import {USER_ID} from "../../const/Constant";
 
     export default {
         name: "Recent10DaysAnalysis",
@@ -74,7 +73,6 @@
 
         },
         created() {
-            sessionStorage.setItem(USER_ID, "1");
             this.fetchData();
         }
 

@@ -8,7 +8,6 @@
 
 <script>
     import ChartConfig from '../../const/ChartConst';
-    import {USER_ID} from "../../const/Constant";
     import {balanceQry} from "../../api/balance/balanceRequest";
 
     export default {
@@ -62,7 +61,6 @@
             }
         },
         created() {
-            sessionStorage.setItem(USER_ID, "1");
             this.fetchData();
         }
     }

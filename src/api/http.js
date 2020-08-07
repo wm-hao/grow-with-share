@@ -69,7 +69,8 @@ export function post(url, params, success, fail, err) {
         } else {
             Message({
                 message: error.message || '服务异常',
-                type: 'error'
+                type: 'error',
+                center: true
             })
         }
     })

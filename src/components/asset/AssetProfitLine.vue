@@ -1,7 +1,7 @@
 <template>
     <v-card raised="">
         <ve-line :data="chartData" :settings="chartSettings" :height="chartHeight" :extend="extend"
-                 :dataZoom="dataZoom" :loading="loading"></ve-line>
+                 :dataZoom="dataZoom" :loading="loading" :mark-line="markLine"></ve-line>
     </v-card>
 </template>
 
@@ -22,6 +22,37 @@
                 dataEmpty: true,
                 loading: true,
                 chartHeight: ChartConfig.baseHeight,
+                markLine: {
+                    data: [
+                        {
+                            type: 'average',
+                            name: '平均数',
+                            label: {
+                                show: true,
+                                normal: {
+                                    position: 'middle',
+                                    formatter: '{b}: {c}'
+                                }
+                            },
+                            lineStyle: {
+                                color: {
+                                    type: 'linear',
+                                    x: 0,
+                                    y: 0,
+                                    x2: 0,
+                                    y2: 1,
+                                    colorStops: [{
+                                        offset: 0, color: 'red' // 0% 处的颜色
+                                    }, {
+                                        offset: 1, color: 'yellow' // 100% 处的颜色
+                                    }],
+                                    global: false // 缺省为 false
+                                }
+                            }
+                        }
+                    ]
+
+                },
                 extend: {
                     legend: {
                         top: ChartConfig.legendTop
