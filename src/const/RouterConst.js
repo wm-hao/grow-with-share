@@ -18,6 +18,7 @@ const RouterPathConst = {
     pathBlank: '/blank',
     pathDashBoardChartProfitQry: "/dashboard/chart/profit/qry",
     pathDashBoardChartProfitView: "/dashboard/chart/profit/view",
+    pathDashBoardBook: '/dashboard/book'
 };
 
 export default RouterPathConst;

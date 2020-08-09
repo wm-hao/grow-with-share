@@ -113,6 +113,7 @@
                         id: '7',
                         name: '书籍列表',
                         icon: 'mdi-book',
+                        to: RouterPathConst.pathDashBoardBook
                     }
 
                 ]

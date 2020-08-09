@@ -20,6 +20,7 @@ import ProfitQry from "./components/chart/profit/ProfitQry";
 import ProfitView from "./components/chart/profit/ProfitView";
 import UserLogin from "./components/user/UserLogin";
 import {USER_ID} from "./const/Constant";
+import Book from "./components/books/Book";
 
 Vue.use(VueRouter);
 
@@ -122,7 +123,12 @@ const routes = [
                 path: RouterPathConst.pathDashBoardAsset,
                 name: RouterPathConst.pathDashBoardAsset,
                 component: AccountBalance
-            }
+            },
+            {
+                path: RouterPathConst.pathDashBoardBook,
+                name: RouterPathConst.pathDashBoardBook,
+                component: Book
+            },
         ]
     }
 ];
