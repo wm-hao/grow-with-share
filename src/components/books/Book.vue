@@ -1,61 +1,40 @@
 <template>
 
-    <v-data-table
-            :no-data-text="noData"
-            :items="books"
-            :headers="headers"
-            class="elevation-4 ma-2 pa-2"
-            :server-items-length="total"
-            :page.sync="page"
-            :items-per-page.sync="perPage"
-            @update:items-per-page="query"
-            @update:page="query"
-            hide-default-header
-            hide-default-footer
-            style="width: 100%;"
-            :calculate-widths="calculate"
-    >
+    <v-card raised="" tile class="ma-2 pa-2">
+        <v-row :key="book.id" v-for="book in books">
+            <v-col lg="2" class="d-flex align-center justify-center">
+                <span
+                        class="d-inline-block text-truncate text-left"
+                        style="width: 168px;"
+                >《{{book.name}}》</span>
+            </v-col>
+            <v-col lg="8" class="d-flex align-center justify-center">
+                <v-progress-linear
+                        v-model="book.progress"
+                        height="12"
+                        striped
+                        :color="getProgressColor(book.progress)"
+                        rounded
+                        style="width: 100%"
+                >
+                    <template v-slot="{ value }">
+                        <span class="text-body-2">{{ Math.ceil(value) }}%</span>
+                    </template>
+                </v-progress-linear>
+            </v-col>
+            <v-col lg="2" class="d-flex align-center justify-center">
+                <v-btn color="primary" @click="saveProgress(book)" style="height: 24px">保存进度</v-btn>
+                <v-btn @click="book.edit = !book.edit" class="ml-8" color="secondary" style="height: 24px">添加书评</v-btn>
+            </v-col>
+            <v-col cols="12" v-if="book.edit">
+                <v-textarea counter rows="2" placeholder="添加书评" class="mx-4 my-1 px-4" background-color="grey lighten-5"
+                            v-model="book.note"/>
+                <v-btn text="" color="purple" block="" @click="addNote(book)">添加</v-btn>
 
-        <template v-slot:item.name="{ item }">
-            <span style="width: 100px">{{item.name}}</span>
-        </template>
-        <template v-slot:item.progress="{ item }">
-            <v-progress-linear
-                    v-model="item.progress"
-                    height="14"
-                    striped
-                    color="deep-orange"
-                    rounded
-                    style="width: 800px"
-            >
-                <template v-slot="{ value }">
-                    {{ Math.ceil(value) }}%
-                </template>
-            </v-progress-linear>
-        </template>
+            </v-col>
+        </v-row>
+    </v-card>
 
-
-    </v-data-table>
-<!--    <v-expansion-panels>-->
-<!--        <v-expansion-panel>-->
-<!--            <v-expansion-panel-header>-->
-<!--                <v-list-item-content class="pa-2">-->
-<!--                    <v-list-item-title v-text="title"-->
-<!--                                       class="text-body-1 font-weight-550 black&#45;&#45;text"></v-list-item-title>-->
-<!--                    <v-list-item-subtitle class="text&#45;&#45;black pt-1">-->
-
-<!--                    </v-list-item-subtitle>-->
-<!--                </v-list-item-content>-->
-<!--                <template v-slot:actions>-->
-<!--                    <v-icon class="mr-2">mdi-arrow-down</v-icon>-->
-<!--                </template>-->
-
-<!--            </v-expansion-panel-header>-->
-<!--            <v-expansion-panel-content>-->
-<!--                aa-->
-<!--            </v-expansion-panel-content>-->
-<!--        </v-expansion-panel>-->
-<!--    </v-expansion-panels>-->
 </template>
 
 <script>
@@ -70,9 +49,28 @@
             perPage: 1,
             books: [
                 {
-                    id:1,
-                    name: '<<早起的奇迹>>',
-                    progress: 60
+                    id: 1,
+                    name: '早起的奇迹',
+                    progress: 60,
+                    edit: false
+                },
+                {
+                    id: 2,
+                    name: '财富自由',
+                    progress: 1,
+                    edit: false
+                },
+                {
+                    id: 3,
+                    name: '止损',
+                    progress: 0,
+                    edit: false
+                },
+                {
+                    id: 4,
+                    name: '怒滚啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
+                    progress: 0,
+                    edit: false
                 }
             ],
             headers: [
@@ -88,8 +86,33 @@
         methods: {
             query() {
                 console.log("")
-            }
-        }
+            },
+            saveProgress(item) {
+                console.log(item);
+            },
+            addNote(item) {
+                console.log(item);
+                
+            },
+            getProgressColor(val) {
+                if (val <= 20) {
+                    return 'blue lighten-2';
+                } else if (val <= 40) {
+                    return 'teal lighten-2';
+                } else if (val <= 60) {
+                    return 'light-green darken-1';
+                } else if (val <= 80) {
+                    return 'orange darken-2';
+                } else if (val <= 95) {
+                    return 'deep-orange accent-3';
+                } else if (val <= 100) {
+                    return 'green darken-1';
+                }
+                return 'grey darken-1';
+            },
+
+        },
+
     }
 </script>
 
