@@ -1,6 +1,9 @@
 import axios from 'axios'
 import {HTTP_HEADER_TOKEN_KEY, HTTP_HEADER_TOKEN_VAL, HTTP_RESPONSE_SUCCESS_CODE, USER_ID} from "../const/Constant";
 import {Message} from "element-ui";
+import router from "../route";
+import RouterPathConst from "../const/RouterConst";
+// import router from "../route";
 
 const http = axios.create({
     baseURL: 'http://localhost:8090/',
@@ -28,7 +31,13 @@ http.interceptors.request.use(
 
 // 添加响应拦截器
 http.interceptors.response.use(response => {
-    return response
+    if (response.data.code === 'TOKEN_EXPIRE') {
+        if (router.history.current.path !== RouterPathConst.pathLogin) {
+            router.replace(RouterPathConst.pathLogin);
+        }
+        return response;
+    }
+    return response;
 }, error => {
     // let msg = error.message !== undefined ? error.message : '后台服务出错，请联系管理员';
     // window.vm.$toast.error(msg);

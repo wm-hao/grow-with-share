@@ -3,10 +3,16 @@
     <v-card raised="" tile class="ma-2 pa-2">
         <v-row :key="book.id" v-for="book in books">
             <v-col lg="2" class="d-flex align-center justify-center">
-                <span
-                        class="d-inline-block text-truncate text-left"
-                        style="width: 168px;"
-                >《{{book.name}}》</span>
+                <v-badge
+                        color="green"
+                        content="6"
+                >
+                    <span
+                            class="d-inline-block text-truncate text-left "
+
+                    >《{{book.name}}》</span>
+                </v-badge>
+
             </v-col>
             <v-col lg="8" class="d-flex align-center justify-center">
                 <v-progress-linear
@@ -23,14 +29,62 @@
                 </v-progress-linear>
             </v-col>
             <v-col lg="2" class="d-flex align-center justify-center">
-                <v-btn color="primary" @click="saveProgress(book)" style="height: 24px">保存进度</v-btn>
-                <v-btn @click="book.edit = !book.edit" class="ml-8" color="secondary" style="height: 24px">添加书评</v-btn>
+                <v-btn color="primary" @click="updateBook(book)" style="height: 24px">保存进度</v-btn>
+                <v-btn @click="book.edit = !book.edit" class="ml-8" color="secondary" style="height: 24px">{{book.note
+                    && book.note !== '' ?
+                    '修改书评':'添加书评'}}
+                </v-btn>
             </v-col>
             <v-col cols="12" v-if="book.edit">
                 <v-textarea counter rows="2" placeholder="添加书评" class="mx-4 my-1 px-4" background-color="grey lighten-5"
                             v-model="book.note"/>
-                <v-btn text="" color="purple" block="" @click="addNote(book)">添加</v-btn>
+                <v-btn text="" color="purple" block="" @click="updateBook(book)">{{book.note && book.note !== '' ?
+                    '完成修改':'添加'}}
+                </v-btn>
 
+            </v-col>
+
+        </v-row>
+        <v-row>
+            <v-col sm="12" class="d-flex align-center justify-center">
+                <v-btn color="green" class="white--text" @click.stop="dialog = true">添加书籍计划</v-btn>
+                <v-dialog v-model="dialog" max-width="600px" persistent>
+                    <v-card>
+                        <v-card-title>
+                            <span class="headline">添加一条新的阅读计划吧</span>
+                        </v-card-title>
+
+                        <v-card-text>
+                            <v-container>
+                                <v-row>
+                                    <v-col cols="12" sm="6" md="4">
+                                        <v-text-field v-model="newBookPlan.name" placeholder="书籍名称"
+                                                      label="书籍名称"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="4">
+                                        <v-text-field v-model="newBookPlan.progress" type="number"
+                                                      placeholder="阅读进度"
+                                                      label="阅读进度"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="4">
+                                        <v-text-field v-model="newBookPlan.totalPages" type="number" placeholder="总页数"
+                                                      label="总页数"></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-textarea v-model="newBookPlan.note" rows="2" counter
+                                                    label="评论想法"></v-textarea>
+                                    </v-col>
+                                </v-row>
+                            </v-container>
+                        </v-card-text>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="blue darken-1" text @click="close">取消</v-btn>
+                            <v-btn color="blue darken-1" text @click="save">保存</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </v-col>
         </v-row>
     </v-card>
@@ -38,61 +92,29 @@
 </template>
 
 <script>
+    import {bookAdd, bookQry, bookUpdate} from "../../api/book/bookRequest";
+
     export default {
         name: "Book",
         data: () => ({
-            skill: 20,
-            calculate: true,
-            noData: '暂无书籍信息',
-            total: 1,
-            page: 1,
-            perPage: 1,
-            books: [
-                {
-                    id: 1,
-                    name: '早起的奇迹',
-                    progress: 60,
-                    edit: false
-                },
-                {
-                    id: 2,
-                    name: '财富自由',
-                    progress: 1,
-                    edit: false
-                },
-                {
-                    id: 3,
-                    name: '止损',
-                    progress: 0,
-                    edit: false
-                },
-                {
-                    id: 4,
-                    name: '怒滚啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊',
-                    progress: 0,
-                    edit: false
-                }
-            ],
-            headers: [
-                {
-                    text: '书籍名称',
-                    align: 'start',
-                    value: 'name',
-                },
-                {text: '阅读进度', value: 'progress'},
-                {text: '操作', value: 'operations'},
-            ],
+            dialog: false,
+            books: [],
+            newBookPlan: {
+                name: '',
+                progress: 0,
+                note: '',
+                totalPages: 0
+            },
+            defaultBook: {
+                name: '',
+                progress: 0,
+                note: '',
+                totalPages: 0
+            }
         }),
         methods: {
-            query() {
-                console.log("")
-            },
-            saveProgress(item) {
-                console.log(item);
-            },
-            addNote(item) {
-                console.log(item);
-                
+            updateBook(item) {
+                bookUpdate(item);
             },
             getProgressColor(val) {
                 if (val <= 20) {
@@ -110,9 +132,56 @@
                 }
                 return 'grey darken-1';
             },
-
+            close() {
+                this.dialog = false;
+                setTimeout(() => {
+                    this.newBookPlan = Object.assign({}, this.defaultBook);
+                }, 300);
+            },
+            query() {
+                let self = this;
+                bookQry({}, (json) => {
+                    let rows = json.rows;
+                    for (let i in rows) {
+                        rows[i].edit = false;
+                    }
+                    self.books = rows;
+                })
+            },
+            save() {
+                let self = this;
+                let book = this.newBookPlan;
+                if (book.name === '') {
+                    this.errorMsg('书籍名称不能为空');
+                    return;
+                }
+                if (book.totalPages <= 0) {
+                    this.errorMsg('书籍总页数不能小于等于0页');
+                    return;
+                }
+                if (book.totalPages > 100) {
+                    this.errorMsg('阅读进度不能超过100%');
+                    return;
+                }
+                bookAdd(book, (json) => {
+                    self.$message.success({
+                        center: true,
+                        message: json.message
+                    });
+                    self.query();
+                    self.close();
+                })
+            },
+            errorMsg(msg) {
+                this.$message.error({
+                    center: true,
+                    message: msg
+                })
+            }
         },
-
+        created() {
+            this.query();
+        }
     }
 </script>
 
