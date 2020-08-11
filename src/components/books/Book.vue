@@ -4,12 +4,12 @@
         <v-row :key="book.id" v-for="book in books">
             <v-col lg="2" class="d-flex align-center justify-center">
                 <v-badge
-                        color="green"
-                        content="6"
+                        :color="getReadCountsColor(book.readCounts)"
+                        :content="getReadCountsMsg(book.readCounts)"
                 >
                     <span
                             class="d-inline-block text-truncate text-left "
-
+                            @click="addReadCounts(book)"
                     >《{{book.name}}》</span>
                 </v-badge>
 
@@ -39,7 +39,7 @@
                 <v-textarea counter rows="2" placeholder="添加书评" class="mx-4 my-1 px-4" background-color="grey lighten-5"
                             v-model="book.note"/>
                 <v-btn text="" color="purple" block="" @click="updateBook(book)">{{book.note && book.note !== '' ?
-                    '完成修改':'添加'}}
+                    '完成修改':'完成编辑'}}
                 </v-btn>
 
             </v-col>
@@ -47,7 +47,7 @@
         </v-row>
         <v-row>
             <v-col sm="12" class="d-flex align-center justify-center">
-                <v-btn color="green" class="white--text" @click.stop="dialog = true">添加书籍计划</v-btn>
+                <v-btn color="green" style="height: 30px" class="white--text" @click.stop="dialog = true">添加书籍计划</v-btn>
                 <v-dialog v-model="dialog" max-width="600px" persistent>
                     <v-card>
                         <v-card-title>
@@ -103,13 +103,15 @@
                 name: '',
                 progress: 0,
                 note: '',
-                totalPages: 0
+                totalPages: 0,
+                readCounts: 1
             },
             defaultBook: {
                 name: '',
                 progress: 0,
                 note: '',
-                totalPages: 0
+                totalPages: 0,
+                readCounts: 1
             }
         }),
         methods: {
@@ -132,11 +134,33 @@
                 }
                 return 'grey darken-1';
             },
+            getReadCountsColor(val) {
+                if (val == 0) {
+                    return 'lime'
+                } else if (val <= 1) {
+                    return 'green'
+                } else if (val <= 2) {
+                    return 'orange'
+                } else if (val <= 3) {
+                    return 'pink'
+                } else {
+                    return 'red'
+                }
+            },
+            getReadCountsMsg(val) {
+                if (val === 0) {
+                    return '正在阅读';
+                }
+                return '读了' + val + '遍';
+            },
             close() {
                 this.dialog = false;
                 setTimeout(() => {
                     this.newBookPlan = Object.assign({}, this.defaultBook);
                 }, 300);
+            },
+            addReadCounts(book) {
+                book.readCounts = book.readCounts + 1;
             },
             query() {
                 let self = this;
