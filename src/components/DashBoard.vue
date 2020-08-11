@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-app-bar app color="pink darken-1" clipped-left="">
-            <v-app-bar-nav-icon @click="drawer = true" color="white"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click.stop="mini = !mini" color="white"></v-app-bar-nav-icon>
             <v-spacer/>
             <v-btn icon @click="handleRefresh" class="">
                 <v-icon color="white">mdi-refresh</v-icon>
@@ -16,8 +16,10 @@
         <v-navigation-drawer
                 app
                 clipped=""
-                temporary=""
+                permanent
                 v-model="drawer"
+                :mini-variant.sync="mini"
+                mini-variant-width="68"
         >
             <SideBar/>
         </v-navigation-drawer>
@@ -44,7 +46,8 @@
         name: "DashBoard",
         components: {SideBar, Copyright},
         data: () => ({
-            drawer: false
+            drawer: true,
+            mini: true
         }),
         methods: {
             handleLogout: function () {

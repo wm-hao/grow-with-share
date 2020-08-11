@@ -12,8 +12,8 @@
                 </template>
 
                 <v-list-item active-class="pink--text text--darken-1" v-for="child in item.children" :key="child.id"
-                             :to="child.to" class="ml-8">
-                    <v-list-item-icon>
+                             :to="child.to" class="">
+                    <v-list-item-icon class="ml-2">
                         <v-icon>{{child.icon}}</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>{{child.name}}</v-list-item-title>
