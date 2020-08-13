@@ -66,7 +66,10 @@
                 historyQryPagination(qryParams, (json) => {
                     self.assembleData(json.rows);
                 }, (json) => {
-                    self.$message.error(json.message);
+                    self.$message.error({
+                        center: true,
+                        message: json.message
+                    });
                 });
             },
             getPayTypeColor: (payType) => {

@@ -1,7 +1,7 @@
 <template>
 
-    <v-card raised="" tile class="ma-2 pa-2">
-        <v-row :key="book.id" v-for="book in books">
+    <v-card raised="" tile class="ma-2 pa-4">
+        <v-row :key="book.id" v-for="book in books" class="ma-2 pa-1">
             <v-col lg="2" class="d-flex align-center justify-center">
                 <v-badge
                         :color="getReadCountsColor(book.readCounts)"
@@ -45,7 +45,7 @@
             </v-col>
 
         </v-row>
-        <v-row>
+        <v-row class="ma-2 pa-1">
             <v-col sm="12" class="d-flex align-center justify-center">
                 <v-btn color="green" style="height: 30px" class="white--text" @click.stop="dialog = true">添加书籍计划</v-btn>
                 <v-dialog v-model="dialog" max-width="600px" persistent>
@@ -183,7 +183,7 @@
                     this.errorMsg('书籍总页数不能小于等于0页');
                     return;
                 }
-                if (book.totalPages > 100) {
+                if (book.progress > 100) {
                     this.errorMsg('阅读进度不能超过100%');
                     return;
                 }

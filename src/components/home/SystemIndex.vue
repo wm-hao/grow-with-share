@@ -21,7 +21,7 @@
     import Recent10DaysAnalysis from "./Recent10DaysAnalysis";
     import RecentTradeRecords from "./RecentTradeRecords";
     import AssetPie from "../asset/AssetPie";
-    import {profitQryTotal} from "../../api/profit/profitRequest";
+    import {balanceToadyQry} from "../../api/balance/balanceRequest";
 
     export default {
         components: {AssetPie, RecentTradeRecords, Recent10DaysAnalysis},
@@ -56,10 +56,10 @@
                             distinguishCancelAndClose: true,
                             showClose: false,
                         }).then(()=>{
-                            profitQryTotal({}, (json) => {
+                            balanceToadyQry({}, (json) => {
                                 self.$notify({
                                     title: '提示',
-                                    message: '截止当前，您共盈利' + parseInt((json.rows[0].amount || 0) - 2000) + '元',
+                                    message: '截止当前，您共盈利' + parseFloat((json.rows[0].profit || 0) - 6710.4) + '元',
                                     duration: 2000,
                                 });
                             })

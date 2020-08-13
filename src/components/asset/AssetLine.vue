@@ -41,8 +41,8 @@
                 },
                 chartSettings: {
                     metrics: ['shareAmount', 'fundAmount', 'cashAmount', 'total'],
-                    axisSite: {right: ['total', 'shareAmount']},
-                    yAxisType: ['normal', 'KMB'],
+                    // axisSite: {right: ['total', 'shareAmount']},
+                    yAxisType: ['normal', 'normal'],
                     dimension: ['date'],
                     labelMap: {
                         date: '日期',
