@@ -27,32 +27,35 @@
             </v-col>
 
         </v-row>
-        <v-data-table
+        <v-row class="ma-0">
+            <v-data-table
 
-                :no-data-text="noData"
-                :headers="headers"
-                :items="records"
-                class="elevation-4  ma-4 pa-2"
-                :server-items-length="total"
-                :options.sync="options"
-                :page.sync="page"
-                :items-per-page.sync="perPage"
-                @update:items-per-page="query"
-                @update:page="query"
-                style="width: 100%;"
-        >
+                    :no-data-text="noData"
+                    :headers="headers"
+                    :items="records"
+                    class="elevation-2  ma-2 pa-1"
+                    :server-items-length="total"
+                    :options.sync="options"
+                    :page.sync="page"
+                    :items-per-page.sync="perPage"
+                    @update:items-per-page="query"
+                    @update:page="query"
+                    style="width: 100%;"
+            >
 
-            <template v-slot:header.date="{ header } ">
-                <span class="text-body-2">{{header.text}}</span>
-            </template>
-            <template v-slot:header.amount="{ header } ">
-                <span class="text-body-2">{{header.text}}</span>
-            </template>
-            <template v-slot:header.remarks="{ header } ">
-                <span class="text-body-2">{{header.text}}</span>
-            </template>
+                <template v-slot:header.date="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.amount="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
+                <template v-slot:header.remarks="{ header } ">
+                    <span class="text-body-2">{{header.text}}</span>
+                </template>
 
-        </v-data-table>
+            </v-data-table>
+        </v-row>
+
     </v-card>
 </template>
 
@@ -75,7 +78,7 @@
                         align: 'start',
                         value: 'date',
                     },
-                    {text: '消费金额', value: 'amount'},
+                    {text: '消费金额/元', value: 'amount'},
                     {text: '消费项目', value: 'remarks'},
                 ],
                 records: [],
@@ -115,7 +118,7 @@
                     },
                 },
                 consumption: {
-                    amount: 0,
+                    amount: null,
                     remarks: ''
                 }
             }
@@ -141,14 +144,14 @@
                 });
             },
             add() {
-                if (this.remarks === '') {
+                if (this.consumption.remarks === '') {
                     this.$message.error({
                         center: true,
                         message: '消费项目不能为空'
                     });
                     return;
                 }
-                if (this.amount < 0) {
+                if (!this.consumption.amount || this.consumption.amount < 0) {
                     this.$message.error({
                         center: true,
                         message: '消费金额不能小于0'
