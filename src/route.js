@@ -21,6 +21,7 @@ import ProfitView from "./components/chart/profit/ProfitView";
 import UserLogin from "./components/user/UserLogin";
 import {USER_ID} from "./const/Constant";
 import Book from "./components/books/Book";
+import DailyConsumption from "./components/daily/consumption/DailyConsumption";
 
 Vue.use(VueRouter);
 
@@ -47,6 +48,11 @@ const routes = [
                 path: RouterPathConst.pathDashBoardIndex,
                 name: RouterPathConst.pathDashBoardIndex,
                 component: SystemIndex,
+            },
+            {
+                path: RouterPathConst.pathDashBoardDailyConsumption,
+                name: RouterPathConst.pathDashBoardDailyConsumption,
+                component: DailyConsumption,
             },
             {
                 path: RouterPathConst.pathDashBoardTradeQuery,

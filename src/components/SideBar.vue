@@ -80,8 +80,9 @@
                     },
                     {
                         id: '5',
-                        name: '个人信息',
+                        name: '个人消费',
                         icon: 'mdi-account-box',
+                        to: RouterPathConst.pathDashBoardDailyConsumption
                     },
                     {
                         id: '6',
