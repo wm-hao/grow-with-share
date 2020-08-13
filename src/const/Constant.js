@@ -11,6 +11,8 @@ export const USER_NAME = "TK_USERNAME";
 export const REMEMBER_PASS = "TK_REMEMBER_PASS";
 export const USER_ID = "userID";
 
+export const HAS_PROMPTED = "hasPrompted";
+
 export const SHARE_PAY_TYPES = [
     {
         value: 'SELL',

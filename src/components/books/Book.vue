@@ -29,7 +29,7 @@
                 </v-progress-linear>
             </v-col>
             <v-col lg="2" class="d-flex align-center justify-center">
-                <v-btn color="primary" @click="updateBook(book)" style="height: 24px">保存进度</v-btn>
+                <v-btn color="primary" @click="updateBook(book)" style="height: 24px">保存</v-btn>
                 <v-btn @click="book.edit = !book.edit" class="ml-8" color="secondary" style="height: 24px">{{book.note
                     && book.note !== '' ?
                     '修改书评':'添加书评'}}

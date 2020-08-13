@@ -52,7 +52,10 @@
                     };
                     this.$http.post("trade/import", params, config).then(function (response) {
                         if (response.data.code === HTTP_RESPONSE_SUCCESS_CODE) {
-                            self.$message.success(response.data.message);
+                            self.$message.success({
+                                message: response.data.message,
+                                center: true
+                            });
                             self.file = null;
                             self.fileName = null;
                         } else {

@@ -10,7 +10,7 @@
                     <v-col lg="10" sm="12" class="d-flex justify-center align-center">
                         <div>
                             <el-form :model="qryParams" :rules="rules" ref="qryParams" size="small" :inline="true"
-                                     label-width="120">
+                                     label-width="120" class="ml-2">
                                 <el-form-item label="股票名称" prop="shareName" size="small">
                                     <el-input v-model="qryParams.shareName" style="max-width: 168px"></el-input>
                                 </el-form-item>
