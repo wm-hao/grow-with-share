@@ -21,8 +21,8 @@
     import Recent10DaysAnalysis from "./Recent10DaysAnalysis";
     import RecentTradeRecords from "./RecentTradeRecords";
     import AssetPie from "../asset/AssetPie";
-    import {balanceToadyQry} from "../../api/balance/balanceRequest";
     import {HAS_PROMPTED, STATUS_CODE_TRUE} from "../../const/Constant";
+    import {balanceQryProfit} from "../../api/balance/balanceRequest";
 
     export default {
         components: {AssetPie, RecentTradeRecords, Recent10DaysAnalysis},
@@ -30,10 +30,10 @@
         methods: {
             qryProfit() {
                 let self = this;
-                balanceToadyQry({}, (json) => {
+                balanceQryProfit({}, (json) => {
                     self.$notify({
                         title: '提示',
-                        message: '截止当前，您共盈利' + parseFloat((json.rows[0].profit || 0) - 6710.4) + '元',
+                        message: '截止当前，您共盈利' + parseFloat((json.data || 0) - 6710.4) + '元',
                         duration: 2000,
                     });
                 })

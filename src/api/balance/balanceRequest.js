@@ -22,3 +22,13 @@ export function balanceToadyQry(params, success, fail, err) {
     }
     return get("balance/today", params, success, fail, err);
 }
+
+export function balanceQryProfit(params, success, fail, err) {
+    if (params) {
+        params.userId = sessionStorage.getItem(USER_ID);
+    }
+    return get("balance/profitSumAfterSomeDay", params, success, fail, err);
+}
+
+
+
