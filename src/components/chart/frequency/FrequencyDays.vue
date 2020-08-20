@@ -16,7 +16,7 @@
         data: () => {
             let options = {
                 title: '日交易频率',
-                barWidth: 10
+                barWidth: 8
             };
             const baseChartSettings = BaseChartSettings(options);
             return {

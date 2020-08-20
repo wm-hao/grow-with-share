@@ -150,7 +150,7 @@
         data: () => {
             return {
                 background: {
-                    backgroundImage: "url(" + require("../../static/d.png") + ")",
+                    backgroundImage: "url(" + require("../../static/nb.jpg") + ")",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "100% 100%",
                 },

@@ -16,7 +16,8 @@
         data: () => {
             let base = BaseChartSettings({
                 title: '账户资源',
-                itemStyleOrigin: true
+                itemStyleOrigin: true,
+                barWidth: 6
             });
             return {
                 chartDataSettings: {

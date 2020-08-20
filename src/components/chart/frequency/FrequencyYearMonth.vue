@@ -21,8 +21,8 @@
         props: ['name'],
         name: "totalYearMonth",
         data: () => {
-            let year = BaseChartSettings({title: '年交易频率', axisLabel: 0, barWidth: 8});
-            let month = BaseChartSettings({title: '月交易频率', barWidth: 8});
+            let year = BaseChartSettings({title: '年交易频率', axisLabel: 0, barWidth: 5});
+            let month = BaseChartSettings({title: '月交易频率', barWidth: 5});
             return {
                 chartDataSettings: {
                     month: {
