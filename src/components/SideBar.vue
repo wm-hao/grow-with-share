@@ -115,6 +115,12 @@
                         name: '书籍列表',
                         icon: 'mdi-book',
                         to: RouterPathConst.pathDashBoardBook
+                    },
+                    {
+                        id: '8',
+                        name: '机会池',
+                        icon: 'fa-tasks',
+                        to: RouterPathConst.pathDashBoardChanceList
                     }
 
                 ]

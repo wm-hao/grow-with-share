@@ -22,6 +22,9 @@ import UserLogin from "./components/user/UserLogin";
 import {USER_ID} from "./const/Constant";
 import Book from "./components/books/Book";
 import DailyConsumption from "./components/daily/consumption/DailyConsumption";
+import Chance from "./components/chances/Chance";
+import ChanceFile from "./components/chances/ChanceFile";
+import ChanceList from "./components/chances/ChanceList";
 
 Vue.use(VueRouter);
 
@@ -134,6 +137,23 @@ const routes = [
                 path: RouterPathConst.pathDashBoardBook,
                 name: RouterPathConst.pathDashBoardBook,
                 component: Book
+            },
+            {
+                path: RouterPathConst.pathDashBoardChance,
+                name: RouterPathConst.pathDashBoardChance,
+                component: Chance,
+                children: [
+                    {
+                        path: RouterPathConst.pathDashBoardChanceList,
+                        name: RouterPathConst.pathDashBoardChanceList,
+                        component: ChanceList,
+                    },
+                    {
+                        path: RouterPathConst.pathDashBoardChanceFile,
+                        name: RouterPathConst.pathDashBoardChanceFile,
+                        component: ChanceFile,
+                    },
+                ]
             },
         ]
     }

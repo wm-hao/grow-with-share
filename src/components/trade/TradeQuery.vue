@@ -335,8 +335,8 @@
                     this.$message.error("股票代码不能为空");
                     return false;
                 }
-                if (!this.editedItem.shareCode || this.editedItem.shareCode === "") {
-                    this.$message.error("股票代码不能为空");
+                if (!this.editedItem.alias || this.editedItem.alias === "") {
+                    this.$message.error("股票别名不能为空");
                     return false;
                 }
                 if (!this.editedItem.shareName || this.editedItem.shareName === "") {

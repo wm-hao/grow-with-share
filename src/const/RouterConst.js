@@ -19,7 +19,10 @@ const RouterPathConst = {
     pathDashBoardChartProfitQry: "/dashboard/chart/profit/qry",
     pathDashBoardChartProfitView: "/dashboard/chart/profit/view",
     pathDashBoardBook: '/dashboard/book',
-    pathDashBoardDailyConsumption: '/dashboard/daily/consumption'
+    pathDashBoardDailyConsumption: '/dashboard/daily/consumption',
+    pathDashBoardChance: '/dashboard/chance',
+    pathDashBoardChanceList: '/dashboard/chance/list',
+    pathDashBoardChanceFile: '/dashboard/chance/file',
 };
 
 export default RouterPathConst;

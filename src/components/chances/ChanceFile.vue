@@ -1,13 +1,20 @@
 <template>
-    <v-card flat>
+    <v-card flat="" class="ma-0">
+        <v-row class="d-flex align-center">
 
-        <v-file-input accept=".xlsx" show-size counter label="请上传正确格式的xlsx格式文件" clearable
+            <v-col sm="8">
+                <v-file-input accept=".txt" show-size counter label="请上传正确格式的txt格式文件" clearable
+                              @change="fileChange" ref="file" v-model="fileName"></v-file-input>
 
-                      @change="fileChange" ref="file" v-model="fileName"></v-file-input>
+            </v-col>
+            <v-col sm="2" class="d-flex justify-center">
+                <v-btn class="white--text pink darken-1" @click="upload" style="width:88%">导入记录</v-btn>
+            </v-col>
+            <v-col sm="2" class="d-flex justify-center ">
+                <v-btn color="green" class="white--text" @click="download" style="width:88%">导出记录</v-btn>
+            </v-col>
+        </v-row>
 
-        <div class="d-flex justify-center">
-            <v-btn color="primary" @click="upload">导入到后台</v-btn>
-        </div>
 
     </v-card>
 </template>
@@ -16,14 +23,17 @@
     import {HTTP_HEADER_TOKEN_VAL, HTTP_RESPONSE_SUCCESS_CODE, USER_ID} from "../../const/Constant";
 
     export default {
-        name: "TradeImport",
+        name: "ChanceFile",
         data: () => {
             return {
                 file: null,
-                fileName: null
+                fileName: null,
             }
         },
         methods: {
+            download() {
+                window.location.href = 'http://localhost:8090/chance/export?createTime=2020-08-19' + '&userId=' + sessionStorage.getItem(USER_ID);
+            },
             fileChange: function (files) {
                 this.file = files;
             },
@@ -41,7 +51,7 @@
                             HTTP_HEADER_TOKEN_KEY: sessionStorage.getItem(HTTP_HEADER_TOKEN_VAL) || ''
                         }
                     };
-                    this.$http.post("trade/import", params, config).then(function (response) {
+                    this.$http.post("chance/import", params, config).then(function (response) {
                         if (response.data.code === HTTP_RESPONSE_SUCCESS_CODE) {
                             self.$message.success({
                                 message: response.data.message,
