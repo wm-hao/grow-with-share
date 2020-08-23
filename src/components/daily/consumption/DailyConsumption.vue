@@ -4,7 +4,7 @@
             <v-col lg="8" sm="12">
                 <v-card raised="">
                     <ve-line :data="chartData" :settings="chartSettings" :height="chartHeight" :extend="extend"
-                             :dataZoom="dataZoom" :loading="loading"></ve-line>
+                             :dataZoom="dataZoom" :loading="loading" :mark-line="markLine"></ve-line>
                 </v-card>
             </v-col>
             <v-col lg="4" sm="12">
@@ -90,6 +90,37 @@
                 },
                 dataEmpty: false,
                 loading: true,
+                markLine: {
+                    data: [
+                        {
+                            type: 'average',
+                            name: '平均数',
+                            label: {
+                                show: true,
+                                normal: {
+                                    position: 'middle',
+                                    formatter: '{b}: {c}'
+                                }
+                            },
+                            lineStyle: {
+                                color: {
+                                    type: 'linear',
+                                    x: 0,
+                                    y: 0,
+                                    x2: 0,
+                                    y2: 1,
+                                    colorStops: [{
+                                        offset: 0, color: 'red' // 0% 处的颜色
+                                    }, {
+                                        offset: 1, color: 'yellow' // 100% 处的颜色
+                                    }],
+                                    global: false // 缺省为 false
+                                }
+                            }
+                        }
+                    ]
+
+                },
                 chartHeight: ChartConfig.smallHeight,
                 extend: {
                     legend: {
