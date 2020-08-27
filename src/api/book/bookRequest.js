@@ -21,3 +21,10 @@ export function bookUpdate(params, success, fail, err) {
     }
     return post("book/update", params, success, fail, err);
 }
+
+export function bookPagination(params, success, fail, err) {
+    if (params) {
+        params.userId = sessionStorage.getItem(USER_ID);
+    }
+    return get("book/pagination", params, success, fail, err);
+}

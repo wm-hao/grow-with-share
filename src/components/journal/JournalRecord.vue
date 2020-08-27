@@ -135,7 +135,7 @@
                 };
                 let self = this;
                 journalQry(params, (json) => {
-                    self.showLength = json.total / self.size;
+                    self.showLength = (json.total / self.size) + 1;
                     if (json.total > self.size) {
                         self.pagination = true;
                     }

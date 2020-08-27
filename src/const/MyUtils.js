@@ -18,3 +18,11 @@ export function dateFormat(fmt, date) {
     }
     return fmt;
 }
+
+
+export function getRandomColor(colorIdx, percent, deep) {
+    const colors = ['red', 'pink', 'indigo', 'blue', 'light-blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'orange', 'brown', 'blue-grey', 'grey'];
+    const percents = ['lighten', 'accent'];
+    const deeps = ['1', '2', '3', '4'];
+    return colors[colorIdx * 100 % colors.length] + ' ' + percents[percent  % percents.length] + '-' + deeps[deep % deeps.length];
+}

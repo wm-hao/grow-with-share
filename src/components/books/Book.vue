@@ -2,19 +2,19 @@
 
     <v-card raised="" tile class="ma-2 pa-4">
         <v-row :key="book.id" v-for="book in books" class="ma-2 pa-1">
-            <v-col lg="2" class="d-flex align-center justify-center">
+            <v-col lg="3" class="d-flex align-center ">
                 <v-badge
                         :color="getReadCountsColor(book.readCounts)"
                         :content="getReadCountsMsg(book.readCounts)"
                 >
                     <span
-                            class="d-inline-block text-truncate text-left "
+                            class="text-truncate text-wrap"
                             @click="addReadCounts(book)"
                     >《{{book.name}}》</span>
                 </v-badge>
 
             </v-col>
-            <v-col lg="8" class="d-flex align-center justify-center">
+            <v-col lg="6" class="d-flex align-center justify-center">
                 <v-progress-linear
                         v-model="book.progress"
                         height="12"
@@ -28,7 +28,7 @@
                     </template>
                 </v-progress-linear>
             </v-col>
-            <v-col lg="2" class="d-flex align-center justify-center">
+            <v-col lg="3" class="d-flex align-center justify-center">
                 <v-btn color="primary" @click="updateBook(book)" style="height: 24px">保存</v-btn>
                 <v-btn @click="book.edit = !book.edit" class="ml-8" color="secondary" style="height: 24px">{{book.note
                     && book.note !== '' ?
@@ -87,17 +87,45 @@
                 </v-dialog>
             </v-col>
         </v-row>
+        <v-row>
+            <v-col sm="12" class="d-flex align-center justify-center">
+                <v-pagination
+                        v-if="pagination"
+                        class="mt-4"
+                        v-model="page"
+                        :circle="circle"
+                        :disabled="disabled"
+                        :length="showLength"
+                        @next="query"
+                        @input="query"
+                        @previous="query"
+                        :page="page"
+                        :total-visible="totalVisible"
+                ></v-pagination>
+            </v-col>
+        </v-row>
     </v-card>
 
 </template>
 
 <script>
-    import {bookAdd, bookQry, bookUpdate} from "../../api/book/bookRequest";
+    import {bookAdd, bookPagination, bookUpdate} from "../../api/book/bookRequest";
 
     export default {
         name: "Book",
         data: () => ({
+            circle: false,
+            disabled: false,
+            showLength: 15,
+            nextIcon: 'navigate_next',
+            nextIcons: ['mdi-chevron-right', 'mdi-arrow-right', 'mdi-menu-right'],
+            prevIcon: 'navigate_before',
+            prevIcons: ['mdi-chevron-left', 'mdi-arrow-left', 'mdi-menu-left'],
+            page: 1,
+            totalVisible: 10,
+            size: 5,
             dialog: false,
+            pagination: false,
             books: [],
             newBookPlan: {
                 name: '',
@@ -164,8 +192,16 @@
             },
             query() {
                 let self = this;
-                bookQry({}, (json) => {
+                let params = {
+                    page: self.page - 1,
+                    size: self.size
+                };
+                bookPagination(params, (json) => {
                     let rows = json.rows;
+                    self.showLength = (json.total / self.size) + 1;
+                    if (json.total > self.size) {
+                        self.pagination = true;
+                    }
                     for (let i in rows) {
                         rows[i].edit = false;
                     }
