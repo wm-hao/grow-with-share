@@ -50,14 +50,14 @@
                             self.file = null;
                             self.fileName = null;
                         } else {
-                            self.$message.error(response.data.message);
+                            self.$message.error({message:response.data.message,center:true});
                         }
                     }).catch(function (error) {
-                        self.$message.error(error.message);
+                        self.$message.error({message:error.message,center:true});
                     })
 
                 } else {
-                    this.$message.error('上传文件不能为空，请先选择文件');
+                    this.$message.error({message:'上传文件不能为空，请先选择文件',center:true});
                 }
 
             }

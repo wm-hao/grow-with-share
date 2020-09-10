@@ -84,8 +84,8 @@
                 records: [],
                 dataZoom: {
                     type: 'slider',
-                    start: 2,
-                    end: 98,
+                    start: 10,
+                    end: 100,
                     height: 14,
                 },
                 dataEmpty: false,

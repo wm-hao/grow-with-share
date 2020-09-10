@@ -43,7 +43,11 @@
                     ]
                     self.chartData.rows = rows;
                 }, (json) => {
-                    self.$message.error(json.message);
+                    self.$message.error({
+                            message: json.message,
+                            center: true
+                        }
+                    );
                 })
             }
         },

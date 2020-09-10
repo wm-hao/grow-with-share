@@ -225,19 +225,19 @@
             validateParams() {
 
                 if (!this.editedItem.shareCode || this.editedItem.shareCode === "") {
-                    this.$message.error("股票代码不能为空");
+                    this.$message.error({message:"股票代码不能为空",center:true});
                     return false;
                 }
                 if (!this.editedItem.shareName || this.editedItem.shareName === "") {
-                    this.$message.error("股票名称不能为空");
+                    this.$message.error({message:"股票名称不能为空",center:true});
                     return false;
                 }
                 if (!this.editedItem.hot || this.editedItem.hot <= 0) {
-                    this.$message.error("概率预测不能小于等于0");
+                    this.$message.error({message:"概率预测不能小于等于0",center:true});
                     return false;
                 }
                 if (!this.editedItem.tags || this.editedItem.tags === "") {
-                    this.$message.error("概念不能为空");
+                    this.$message.error({message:"概念不能为空",center:true});
                     return false;
                 }
                 return true;

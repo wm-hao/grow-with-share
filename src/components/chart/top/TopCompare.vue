@@ -51,7 +51,11 @@
                         self.loading = false;
                     }
                 }, (json) => {
-                    self.$message.error(json.message);
+                    self.$message.error({
+                            message: json.message,
+                            center: true
+                        }
+                    );
                 })
             }
         },
